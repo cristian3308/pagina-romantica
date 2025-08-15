@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💖 Nuestra Página del Amor - Laberinto Avanzado 💖</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Comic Sans MS', cursive; 
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); 
+            min-height: 100vh; color: #333; 
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; margin-bottom: 30px; }
+        h1 { 
+            font-size: 2.5em; color: #ff1744; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1); margin-bottom: 10px; 
+        }
+        .nav-buttons { 
+            display: flex; flex-wrap: wrap; gap: 15px; 
+            justify-content: center; margin-bottom: 30px; 
+        }
+        .nav-btn { 
+            background: linear-gradient(45deg, #ff69b4, #ff1744); 
+            color: white; border: none; padding: 15px 25px; 
+            border-radius: 25px; font-size: 16px; cursor: pointer; 
+            transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+        }
+        .nav-btn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3); 
+        }
+        .nav-btn.active { 
+            background: linear-gradient(45deg, #e91e63, #ad1457); 
+            transform: scale(1.05); 
+        }
+        .content-section { 
+            display: none; background: rgba(255,255,255,0.95); 
+            padding: 40px; border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 20px; 
+        }
+        .content-section.active { display: block; }
+        .section-title { 
+            color: #ff1744; font-size: 2em; text-align: center; 
+            margin-bottom: 30px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); 
+        }
+        
+        /* Estilos del laberinto mejorado */
+        .maze-game { text-align: center; }
+        .maze-canvas { 
+            border: none; 
+            background: transparent;
+        }
+        .character-container { 
+            position: absolute; z-index: 10; pointer-events: none;
+            width: 48px; height: 48px; 
+        }
+        .character-container { 
+            position: absolute; z-index: 10; pointer-events: none;
+            width: 48px; height: 48px; 
+        }
+        .character-sprite { 
+            width: 100%; height: 100%; 
+            position: relative;
+            transition: transform 0.2s ease;
+            border-radius: 50%;
+            overflow: hidden;
+            /* Hacer el contenedor más pequeño para reducir área negra */
+            transform: scale(0.85);
+            /* Agregar máscara circular para ocultar completamente los bordes negros */
+            -webkit-mask: radial-gradient(circle, white 70%, transparent 72%);
+            mask: radial-gradient(circle, white 70%, transparent 72%);
+            /* Sombra sutil para darle profundidad */
+            box-shadow: 0 2px 8px rgba(255, 105, 180, 0.3);
+        }
+        .character-sprite iframe {
+            width: 140%; height: 140%;
+            position: absolute;
+            top: -20%; left: -20%;
+            border: none;
+            /* Hacer zoom para que Kirby ocupe más espacio y se vea menos negro */
+            transform: scale(1.2);
+            border-radius: 50%;
+            /* Filtros para mejorar la apariencia */
+            filter: contrast(1.1) brightness(1.05);
+            /* Recortar más el área negra */
+            clip-path: circle(45% at 50% 50%);
+        }
+        .character-happy { 
+            animation: characterHappy 0.8s ease-in-out; 
+        }
+        @keyframes characterHappy { 
+            0%, 100% { transform: scale(0.85) rotate(0deg); } 
+            25% { transform: scale(0.95) rotate(-8deg); } 
+            50% { transform: scale(1.0) rotate(0deg); }
+            75% { transform: scale(0.95) rotate(8deg); } 
+        }
+        
+        .control-btn { 
+            background: #ff69b4; color: white; border: none; 
+            padding: 12px 16px; margin: 5px; border-radius: 10px; 
+            font-size: 18px; cursor: pointer; transition: all 0.3s; 
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        .control-btn:hover { 
+            background: #e91e63; transform: translateY(-2px); 
+            box-shadow: 0 5px 12px rgba(0,0,0,0.3);
+        }
+        .control-btn:active { 
+            transform: scale(0.95); 
+        }
+        
+        /* Estilos para carta antigua con textura */
+        .carta-text {
+            font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+            font-size: 18px;
+            line-height: 1.9;
+            color: #3a2317;
+            /* Textura de pergamino antiguo */
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(101, 67, 33, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(160, 82, 45, 0.06) 0%, transparent 50%),
+                linear-gradient(45deg, #f4f1e8 0%, #ede4d1 100%);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 
+                0 0 30px rgba(139, 69, 19, 0.2),
+                inset 0 0 50px rgba(139, 69, 19, 0.05);
+            border: 4px double #8b4513;
+            position: relative;
+            margin: 30px 0;
+            /* Efecto de papel viejo */
+            background-size: 200px 200px, 150px 150px, 100px 100px, 100% 100%;
+        }
+        .carta-text::before {
+            content: '';
+            position: absolute;
+            top: -8px; left: -8px; right: -8px; bottom: -8px;
+            border: 2px solid #d4af37;
+            border-radius: 25px;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 10% 10%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 90%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+        }
+        .carta-text::after {
+            content: '';
+            position: absolute;
+            top: 20px; left: 20px; right: 20px; bottom: 20px;
+            border: 1px solid rgba(139, 69, 19, 0.2);
+            border-radius: 15px;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .carta-greeting {
+            font-family: 'Great Vibes', cursive;
+            font-size: 32px;
+            color: #8b0000;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(139, 69, 19, 0.3);
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out 0.5s forwards;
+        }
+        .carta-body {
+            text-align: justify;
+            margin-bottom: 30px;
+            font-weight: 400;
+            text-shadow: 0.5px 0.5px 1px rgba(139, 69, 19, 0.1);
+            min-height: 200px;
+        }
+        .carta-signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 26px;
+            color: #8b0000;
+            text-align: right;
+            margin-top: 40px;
+            text-shadow: 1px 1px 2px rgba(139, 69, 19, 0.3);
+            opacity: 0;
+        }
+        
+        /* Efecto typewriter para la carta */
+        .typewriter {
+            border-right: 2px solid #8b0000;
+            animation: blink 1s infinite;
+        }
+        .typewriter.finished {
+            border-right: none;
+        }
+        
+        @keyframes blink {
+            0%, 50% { border-color: #8b0000; }
+            51%, 100% { border-color: transparent; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Otros estilos necesarios */
+        .upload-area { 
+            background: #fce4ec; border: 3px dashed #ff69b4; border-radius: 15px; 
+            padding: 40px; margin: 20px 0; cursor: pointer; transition: all 0.3s; 
+        }
+        .upload-area:hover { background: #f8bbd9; border-color: #e91e63; }
+        .upload-input { display: none; }
+        .photo-viewer { 
+            margin: 30px 0; min-height: 300px; background: #fce4ec; 
+            border-radius: 15px; padding: 20px; display: flex; 
+            align-items: center; justify-content: center; 
+        }
+        .photo-viewer img { 
+            max-width: 100%; max-height: 400px; border-radius: 10px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+        }
+        .emotion-cards { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 20px; margin: 30px 0; 
+        }
+        .emotion-card { 
+            background: linear-gradient(45deg, #fff, #fce4ec); 
+            padding: 30px 20px; border-radius: 15px; text-align: center; 
+            cursor: pointer; transition: all 0.3s; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+        }
+        .emotion-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+        }
+        
+        @media (max-width: 768px) {
+            .nav-buttons { flex-direction: column; align-items: center; }
+            .control-btn { padding: 10px 14px; font-size: 16px; }
+            h1 { font-size: 2em; }
+            .carta-text { padding: 25px; font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💖 Nuestra Página del Amor 💖</h1>
+            <p style="font-size: 1.2em; color: #666;">Un lugar especial para nosotros</p>
+        </header>
+
+        <nav class="nav-buttons">
+            <button class="nav-btn active" onclick="showSection('laberinto')">🌟 Laberinto del Amor</button>
+            <button class="nav-btn" onclick="showSection('carta')">💌 Carta de Amor</button>
+            <button class="nav-btn" onclick="showSection('fotos')">📸 Nuestras Fotos</button>
+            <button class="nav-btn" onclick="showSection('emociones')">💭 Mis Emociones</button>
+        </nav>
+
+        <!-- Sección Laberinto Avanzado -->
+        <section id="laberinto" class="content-section active">
+            <h2 class="section-title">🌟 Laberinto del Amor Avanzado</h2>
+            <div class="maze-game">
+                <p style="font-size: 18px; margin: 20px 0;">¡Explora el gran laberinto y encuentra todos los corazones! La cámara te seguirá en tu aventura 💖</p>
+                <div style="position: relative; display: inline-block; border: 3px solid #ff69b4; border-radius: 10px; overflow: hidden; background: #000;">
+                    <canvas id="mazeCanvas" class="maze-canvas" width="700" height="500"></canvas>
+                    <div id="characterContainer" class="character-container">
+                        <div id="characterSprite" class="character-sprite">
+                            <iframe src="https://gifer.com/embed/Y3il" frameBorder="20" allowFullScreen></iframe>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin: 20px 0;">
+                    <p id="kirbyMessage" style="font-size: 18px; margin: 15px 0; color: #ff1744; font-weight: bold; text-align: center; background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 15px; box-shadow: 0 3px 10px rgba(255,23,68,0.3); transition: all 0.3s ease; min-height: 50px; display: flex; align-items: center; justify-content: center;">🌸 ¡Kirby está listo para la aventura! 🌸</p>
+                    <div style="margin: 15px 0; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                        <button class="control-btn" onclick="moveKirby('up')">⬆️ Arriba</button>
+                    </div>
+                    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                        <button class="control-btn" onclick="moveKirby('left')">⬅️ Izq</button>
+                        <button class="control-btn" onclick="moveKirby('down')">⬇️ Abajo</button>
+                        <button class="control-btn" onclick="moveKirby('right')">➡️ Der</button>
+                    </div>
+                    <div style="margin: 15px 0;">
+                        <button class="control-btn" onclick="resetGame()" style="background: #28a745;">🔄 Nuevo Juego</button>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.9); padding: 15px; border-radius: 10px; margin: 20px auto; max-width: 500px;">
+                    <h4 style="color: #ff1744; margin-bottom: 10px;">📊 Estadísticas del Juego</h4>
+                    <div style="display: flex; justify-content: space-between; font-size: 16px;">
+                        <span>💖 Corazones: <span id="hearts" style="color: #ff1744; font-weight: bold;">0/8</span></span>
+                        <span>👣 Pasos: <span id="steps" style="color: #ff1744; font-weight: bold;">0</span></span>
+                        <span>⏰ Tiempo: <span id="time" style="color: #ff1744; font-weight: bold;">00:00</span></span>
+                    </div>
+                </div>
+                
+                <div style="margin: 20px 0; font-size: 14px; color: #666;">
+                    <p><strong>💡 Instrucciones:</strong></p>
+                    <p>• Usa las flechas del teclado o los botones para moverte</p>
+                    <p>• La cámara te seguirá automáticamente</p>
+                    <p>• Encuentra todos los 8 corazones 💖</p>
+                    <p>• Mira el mini-mapa en la esquina superior derecha</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Carta -->
+        <section id="carta" class="content-section">
+            <h2 class="section-title">💌 Carta de Amor</h2>
+            <div class="carta-text">
+                <div class="carta-greeting">Mi Amor Hermoso</div>
+                <div class="carta-body">
+                    <!-- El contenido se escribirá automáticamente con efecto typewriter -->
+                </div>
+                <div class="carta-signature">Con todo mi amor eterno, ❤️<br>Tu persona especial</div>
+            </div>
+        </section>
+
+        <!-- Sección Fotos -->
+        <section id="fotos" class="content-section">
+            <h2 class="section-title">📸 Nuestras Fotos Especiales</h2>
+            <div class="upload-area" onclick="document.getElementById('photoUpload').click()">
+                <input type="file" id="photoUpload" class="upload-input" multiple accept="image/*">
+                <h3 style="color: #ff69b4; margin-bottom: 15px;">📁 Subir Nuestras Fotos</h3>
+                <p>Haz clic aquí para subir las fotos de nuestros momentos especiales</p>
+                <p style="font-size: 14px; color: #999; margin-top: 10px;">Acepta múltiples imágenes: JPG, PNG, etc.</p>
+            </div>
+            <div class="photo-viewer" id="photoViewer">
+                <p style="color: #999;">Las fotos aparecerán aquí ✨</p>
+            </div>
+            <div style="text-align: center; margin: 20px 0;">
+                <button id="prevPhoto" class="control-btn" style="display: none;">⬅️ Anterior</button>
+                <span id="photoCounter" style="margin: 0 20px; font-weight: bold;"></span>
+                <button id="nextPhoto" class="control-btn" style="display: none;">➡️ Siguiente</button>
+            </div>
+        </section>
+
+        <!-- Sección Emociones -->
+        <section id="emociones" class="content-section">
+            <h2 class="section-title">💭 Expresa Tus Emociones</h2>
+            <p style="text-align: center; font-size: 18px; margin-bottom: 30px;">¿Cómo te sientes hoy? Elige una opción:</p>
+            <div class="emotion-cards">
+                <div class="emotion-card feliz" onclick="showEmotionalCard('feliz')">
+                    <div style="font-size: 48px; margin-bottom: 15px;">😊</div>
+                    <h3>Estoy Feliz</h3>
+                    <p>Para días llenos de alegría</p>
+                </div>
+                <div class="emotion-card romantica" onclick="showEmotionalCard('romantica')">
+                    <div style="font-size: 48px; margin-bottom: 15px;">💖</div>
+                    <h3>Estoy Romántica</h3>
+                    <p>Para momentos de amor</p>
+                </div>
+                <div class="emotion-card nostalgica" onclick="showEmotionalCard('nostalgica')">
+                    <div style="font-size: 48px; margin-bottom: 15px;">🌙</div>
+                    <h3>Estoy Nostálgica</h3>
+                    <p>Para recordar momentos</p>
+                </div>
+                <div class="emotion-card motivacional" onclick="showEmotionalCard('motivacional')">
+                    <div style="font-size: 48px; margin-bottom: 15px;">💪</div>
+                    <h3>Necesito Motivación</h3>
+                    <p>Para días difíciles</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        let gameData = {
+            kirbyX: 1, kirbyY: 1, hearts: 0, steps: 0, time: 0, timer: null,
+            maze: null, canvas: null, ctx: null, cellSize: 35,
+            heartPositions: [], collectedHearts: [],
+            camera: { x: 0, y: 0 },
+            mazeWidth: 35, mazeHeight: 25,
+            viewportWidth: 700, viewportHeight: 500,
+            totalHearts: 8
+        };
+        let photoGallery = { photos: [], currentIndex: 0 };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('💖 Página cargada - Laberinto Avanzado');
+            initAllSections();
+        });
+
+        function initAllSections() { 
+            initCarta(); 
+            initGallery(); 
+            initMaze(); 
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+            
+            if (sectionId === 'laberinto') {
+                setTimeout(() => {
+                    initMaze();
+                    startGameLoop();
+                }, 100);
+            } else if (sectionId === 'carta') {
+                // Reiniciar la carta si ya se había mostrado
+                const cartaBody = document.querySelector('.carta-body');
+                const cartaSignature = document.querySelector('.carta-signature');
+                if (cartaBody && cartaBody.innerHTML.trim() !== '') {
+                    cartaBody.innerHTML = '';
+                    cartaSignature.style.opacity = '0';
+                }
+                setTimeout(() => {
+                    initTypewriterCarta();
+                }, 500);
+            }
+        }
+
+        function initCarta() {
+            // La carta se inicializará cuando se haga click en su sección
+        }
+        
+        function initTypewriterCarta() {
+            // Texto completo de la carta
+            const cartaText = `En este universo infinito de posibilidades, el destino conspiró para juntarnos y crear la historia más hermosa que jamás había soñado. Cada día a tu lado es un regalo que atesoro en lo más profundo de mi corazón.
+
+Eres mi luz en los días grises, mi refugio en las tormentas, y mi razón para sonreír cada mañana. Tu amor ha transformado mi mundo de maneras que nunca creí posibles, llenándolo de colores que antes no podía ver.
+
+Prometo amarte con cada fibra de mi ser, cuidar de tus sueños como si fueran míos, y construir junto a ti un futuro lleno de risas, aventuras y momentos inolvidables.
+
+Eres y serás siempre mi persona favorita en este mundo.`;
+
+            const cartaElement = document.querySelector('.carta-body');
+            const signatureElement = document.querySelector('.carta-signature');
+            
+            if (cartaElement) {
+                // Limpiar contenido inicial
+                cartaElement.innerHTML = '';
+                cartaElement.classList.add('typewriter');
+                
+                let i = 0;
+                const speed = 45; // Velocidad de escritura (ms por carácter)
+                
+                function typeWriter() {
+                    if (i < cartaText.length) {
+                        const char = cartaText.charAt(i);
+                        if (char === '\n') {
+                            cartaElement.innerHTML += '<br><br>';
+                        } else {
+                            cartaElement.innerHTML += char;
+                        }
+                        i++;
+                        setTimeout(typeWriter, speed);
+                    } else {
+                        // Terminar efecto typewriter
+                        cartaElement.classList.remove('typewriter');
+                        cartaElement.classList.add('finished');
+                        
+                        // Mostrar la firma con animación
+                        setTimeout(() => {
+                            if (signatureElement) {
+                                signatureElement.style.animation = 'fadeIn 2s ease-in-out forwards';
+                                signatureElement.style.opacity = '1';
+                            }
+                        }, 800);
+                    }
+                }
+                
+                typeWriter();
+            }
+        }
+
+        function initGallery() {
+            document.getElementById('photoUpload').onchange = function(e) {
+                Array.from(e.target.files).forEach(file => {
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            photoGallery.photos.push(e.target.result);
+                            if (photoGallery.photos.length === 1) {
+                                photoGallery.currentIndex = 0;
+                                showCurrentPhoto();
+                            }
+                            updatePhotoControls();
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            };
+
+            document.getElementById('prevPhoto').onclick = () => {
+                if (photoGallery.photos.length > 0) {
+                    photoGallery.currentIndex = (photoGallery.currentIndex - 1 + photoGallery.photos.length) % photoGallery.photos.length;
+                    showCurrentPhoto();
+                }
+            };
+
+            document.getElementById('nextPhoto').onclick = () => {
+                if (photoGallery.photos.length > 0) {
+                    photoGallery.currentIndex = (photoGallery.currentIndex + 1) % photoGallery.photos.length;
+                    showCurrentPhoto();
+                }
+            };
+        }
+
+        function showCurrentPhoto() {
+            if (photoGallery.photos.length > 0) {
+                document.getElementById('photoViewer').innerHTML = 
+                    `<img src="${photoGallery.photos[photoGallery.currentIndex]}" alt="Nuestra foto especial">`;
+                updatePhotoControls();
+            }
+        }
+
+        function updatePhotoControls() {
+            const prevBtn = document.getElementById('prevPhoto');
+            const nextBtn = document.getElementById('nextPhoto');
+            const counter = document.getElementById('photoCounter');
+
+            if (photoGallery.photos.length > 0) {
+                prevBtn.style.display = 'inline-block';
+                nextBtn.style.display = 'inline-block';
+                counter.textContent = `${photoGallery.currentIndex + 1} / ${photoGallery.photos.length}`;
+            } else {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+                counter.textContent = '';
+            }
+        }
+
+        function showEmotionalCard(emotion) {
+            const messages = {
+                'feliz': '😊 ¡Mi amor hermoso! Tu sonrisa es mi sol favorito. Cuando sonríes, todo el mundo parece más brillante. Te amo infinitamente 💖✨',
+                'romantica': '💖 Mi amor eterno, eres mi verso favorito en la poesía de la vida. En este universo infinito, el destino nos juntó. Para siempre tuyo 💖🌹',
+                'nostalgica': '🌙 Mi querida, los recuerdos de nuestros primeros momentos viven en nuestros corazones. Seguimos escribiendo nuestra historia 💖🌙',
+                'motivacional': '💪 Mi guerrera hermosa, eres más fuerte de lo que crees. No estás sola, tienes mi apoyo incondicional. Creo en ti siempre 💖💪✨'
+            };
+            alert(messages[emotion] || '💖 Te amo mucho mi amor');
+        }
+
+        // SISTEMA DE LABERINTO AVANZADO CON CÁMARA
+
+        function initMaze() {
+            const canvas = document.getElementById('mazeCanvas');
+            if (!canvas) return;
+            
+            gameData.canvas = canvas;
+            gameData.ctx = canvas.getContext('2d');
+            canvas.width = gameData.viewportWidth;
+            canvas.height = gameData.viewportHeight;
+            
+            generateComplexMaze();
+            resetGame();
+        }
+        
+        function generateComplexMaze() {
+            const width = gameData.mazeWidth;
+            const height = gameData.mazeHeight;
+            
+            // Inicializar laberinto lleno de paredes
+            gameData.maze = [];
+            for (let y = 0; y < height; y++) {
+                gameData.maze[y] = [];
+                for (let x = 0; x < width; x++) {
+                    gameData.maze[y][x] = 1; // 1 = pared
+                }
+            }
+            
+            // Generar laberinto usando algoritmo de backtracking
+            const stack = [];
+            const startX = 1, startY = 1;
+            gameData.maze[startY][startX] = 0; // 0 = camino
+            stack.push([startX, startY]);
+            
+            const directions = [[0, -2], [2, 0], [0, 2], [-2, 0]]; // arriba, derecha, abajo, izquierda
+            
+            while (stack.length > 0) {
+                const [currentX, currentY] = stack[stack.length - 1];
+                const neighbors = [];
+                
+                // Encontrar vecinos no visitados
+                directions.forEach(([dx, dy]) => {
+                    const newX = currentX + dx;
+                    const newY = currentY + dy;
+                    
+                    if (newX > 0 && newX < width - 1 && newY > 0 && newY < height - 1) {
+                        if (gameData.maze[newY][newX] === 1) {
+                            neighbors.push([newX, newY, currentX + dx/2, currentY + dy/2]);
+                        }
+                    }
+                });
+                
+                if (neighbors.length > 0) {
+                    // Elegir vecino aleatorio
+                    const [nextX, nextY, wallX, wallY] = neighbors[Math.floor(Math.random() * neighbors.length)];
+                    gameData.maze[nextY][nextX] = 0; // Crear camino
+                    gameData.maze[wallY][wallX] = 0; // Romper pared
+                    stack.push([nextX, nextY]);
+                } else {
+                    stack.pop();
+                }
+            }
+            
+            // Crear algunos caminos adicionales para hacer el laberinto más interesante
+            for (let i = 0; i < Math.floor((width * height) / 15); i++) {
+                const x = Math.floor(Math.random() * (width - 2)) + 1;
+                const y = Math.floor(Math.random() * (height - 2)) + 1;
+                if (gameData.maze[y][x] === 1 && Math.random() > 0.7) {
+                    gameData.maze[y][x] = 0;
+                }
+            }
+            
+            // Colocar corazones en posiciones aleatorias
+            gameData.heartPositions = [];
+            let heartsPlaced = 0;
+            while (heartsPlaced < gameData.totalHearts) {
+                const x = Math.floor(Math.random() * (width - 2)) + 1;
+                const y = Math.floor(Math.random() * (height - 2)) + 1;
+                
+                if (gameData.maze[y][x] === 0 && (x !== 1 || y !== 1)) {
+                    // Verificar que no haya otro corazón muy cerca
+                    let tooClose = false;
+                    for (let [hx, hy] of gameData.heartPositions) {
+                        if (Math.abs(x - hx) + Math.abs(y - hy) < 3) {
+                            tooClose = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!tooClose) {
+                        gameData.heartPositions.push([x, y]);
+                        heartsPlaced++;
+                    }
+                }
+            }
+        }
+
+        function drawMaze() {
+            if (!gameData.ctx) return;
+            
+            const ctx = gameData.ctx;
+            ctx.clearRect(0, 0, gameData.canvas.width, gameData.canvas.height);
+            
+            // Actualizar posición de la cámara para seguir al personaje
+            updateCamera();
+            
+            // Calcular qué celdas son visibles
+            const startX = Math.max(0, Math.floor(gameData.camera.x / gameData.cellSize));
+            const endX = Math.min(gameData.mazeWidth, Math.ceil((gameData.camera.x + gameData.viewportWidth) / gameData.cellSize));
+            const startY = Math.max(0, Math.floor(gameData.camera.y / gameData.cellSize));
+            const endY = Math.min(gameData.mazeHeight, Math.ceil((gameData.camera.y + gameData.viewportHeight) / gameData.cellSize));
+            
+            // Dibujar solo las celdas visibles
+            for (let y = startY; y < endY; y++) {
+                for (let x = startX; x < endX; x++) {
+                    const screenX = x * gameData.cellSize - gameData.camera.x;
+                    const screenY = y * gameData.cellSize - gameData.camera.y;
+                    
+                    if (gameData.maze[y][x] === 1) {
+                        // Dibujar ladrillo pixelado
+                        drawPixelBrick(ctx, screenX, screenY, gameData.cellSize);
+                    } else {
+                        // Suelo del laberinto con patrón más detallado
+                        drawFloor(ctx, screenX, screenY, gameData.cellSize);
+                    }
+                }
+            }
+            
+            // Dibujar corazones visibles
+            ctx.fillStyle = '#ff1744';
+            ctx.font = '24px Arial';
+            ctx.textAlign = 'center';
+            
+            gameData.heartPositions.forEach(([x, y], index) => {
+                if (!gameData.collectedHearts.includes(index)) {
+                    const screenX = x * gameData.cellSize - gameData.camera.x + gameData.cellSize/2;
+                    const screenY = y * gameData.cellSize - gameData.camera.y + gameData.cellSize/2 + 8;
+                    
+                    // Solo dibujar si está en pantalla
+                    if (screenX > -30 && screenX < gameData.viewportWidth + 30 && 
+                        screenY > -30 && screenY < gameData.viewportHeight + 30) {
+                        
+                        // Efecto de brillo en los corazones
+                        const time = Date.now() / 500;
+                        const glow = Math.sin(time + index) * 0.3 + 0.7;
+                        ctx.globalAlpha = glow;
+                        ctx.fillText('💖', screenX, screenY);
+                        ctx.globalAlpha = 1;
+                    }
+                }
+            });
+            
+            // Dibujar mini-mapa
+            drawMiniMap();
+        }
+        
+        function drawFloor(ctx, x, y, size) {
+            // Base del suelo
+            const gradient = ctx.createLinearGradient(x, y, x + size, y + size);
+            gradient.addColorStop(0, '#e8f5e8');
+            gradient.addColorStop(0.5, '#d4f1d4');
+            gradient.addColorStop(1, '#c8e6c8');
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(x, y, size, size);
+            
+            // Patrón de textura
+            ctx.fillStyle = '#b8ddb8';
+            for (let i = 0; i < size; i += 8) {
+                for (let j = 0; j < size; j += 8) {
+                    if ((i + j) % 16 === 0) {
+                        ctx.fillRect(x + i, y + j, 3, 3);
+                    }
+                }
+            }
+        }
+        
+        function updateCamera() {
+            // Centrar cámara en el personaje
+            const targetX = gameData.kirbyX * gameData.cellSize - gameData.viewportWidth / 2;
+            const targetY = gameData.kirbyY * gameData.cellSize - gameData.viewportHeight / 2;
+            
+            // Suavizar movimiento de cámara
+            gameData.camera.x += (targetX - gameData.camera.x) * 0.15;
+            gameData.camera.y += (targetY - gameData.camera.y) * 0.15;
+            
+            // Limitar cámara a los bordes del laberinto
+            const maxX = gameData.mazeWidth * gameData.cellSize - gameData.viewportWidth;
+            const maxY = gameData.mazeHeight * gameData.cellSize - gameData.viewportHeight;
+            
+            gameData.camera.x = Math.max(0, Math.min(maxX, gameData.camera.x));
+            gameData.camera.y = Math.max(0, Math.min(maxY, gameData.camera.y));
+        }
+        
+        function drawMiniMap() {
+            const miniSize = 120;
+            const miniX = gameData.viewportWidth - miniSize - 15;
+            const miniY = 15;
+            const scale = miniSize / Math.max(gameData.mazeWidth, gameData.mazeHeight);
+            
+            // Fondo del minimapa
+            gameData.ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+            gameData.ctx.fillRect(miniX - 5, miniY - 5, miniSize + 10, miniSize + 10);
+            
+            // Borde del minimapa
+            gameData.ctx.strokeStyle = '#ff69b4';
+            gameData.ctx.lineWidth = 2;
+            gameData.ctx.strokeRect(miniX - 5, miniY - 5, miniSize + 10, miniSize + 10);
+            
+            // Dibujar laberinto en minimapa
+            for (let y = 0; y < gameData.mazeHeight; y++) {
+                for (let x = 0; x < gameData.mazeWidth; x++) {
+                    const pixelX = miniX + x * scale;
+                    const pixelY = miniY + y * scale;
+                    
+                    if (gameData.maze[y][x] === 1) {
+                        gameData.ctx.fillStyle = '#8B4513';
+                        gameData.ctx.fillRect(pixelX, pixelY, scale + 1, scale + 1);
+                    } else {
+                        gameData.ctx.fillStyle = '#e8f5e8';
+                        gameData.ctx.fillRect(pixelX, pixelY, scale + 1, scale + 1);
+                    }
+                }
+            }
+            
+            // Mostrar corazones en minimapa
+            gameData.ctx.fillStyle = '#ff1744';
+            gameData.heartPositions.forEach(([x, y], index) => {
+                if (!gameData.collectedHearts.includes(index)) {
+                    gameData.ctx.fillRect(miniX + x * scale - 1, miniY + y * scale - 1, 3, 3);
+                }
+            });
+            
+            // Mostrar posición del jugador
+            gameData.ctx.fillStyle = '#00ff00';
+            const playerX = miniX + gameData.kirbyX * scale - 2;
+            const playerY = miniY + gameData.kirbyY * scale - 2;
+            gameData.ctx.fillRect(playerX, playerY, 4, 4);
+            
+            // Título del minimapa
+            gameData.ctx.fillStyle = 'white';
+            gameData.ctx.font = '12px Arial';
+            gameData.ctx.textAlign = 'center';
+            gameData.ctx.fillText('Mapa', miniX + miniSize/2, miniY - 10);
+        }
+        
+        function drawPixelBrick(ctx, x, y, size) {
+            // Base del ladrillo
+            const gradient = ctx.createLinearGradient(x, y, x + size, y + size);
+            gradient.addColorStop(0, '#8B4513');
+            gradient.addColorStop(0.3, '#A0522D');
+            gradient.addColorStop(0.7, '#8B4513');
+            gradient.addColorStop(1, '#654321');
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(x, y, size, size);
+            
+            // Borde del ladrillo
+            ctx.strokeStyle = '#654321';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(x, y, size, size);
+            
+            // Highlights para efecto 3D
+            ctx.strokeStyle = '#D2691E';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + size - 1, y);
+            ctx.moveTo(x, y);
+            ctx.lineTo(x, y + size - 1);
+            ctx.stroke();
+            
+            // Sombras para efecto 3D
+            ctx.strokeStyle = '#5D4E37';
+            ctx.beginPath();
+            ctx.moveTo(x + size - 1, y + 1);
+            ctx.lineTo(x + size - 1, y + size - 1);
+            ctx.moveTo(x + 1, y + size - 1);
+            ctx.lineTo(x + size - 1, y + size - 1);
+            ctx.stroke();
+            
+            // Textura pixelada
+            ctx.fillStyle = '#A0522D';
+            for (let i = 2; i < size - 2; i += 4) {
+                for (let j = 2; j < size - 2; j += 4) {
+                    if (Math.random() > 0.7) {
+                        ctx.fillRect(x + i, y + j, 2, 2);
+                    }
+                }
+            }
+        }
+
+        function updateKirbyPosition() {
+            const characterContainer = document.getElementById('characterContainer');
+            if (!characterContainer || !gameData.canvas) return;
+            
+            // Calcular posición en pantalla relativa a la cámara
+            const screenX = (gameData.kirbyX * gameData.cellSize) - gameData.camera.x + (gameData.cellSize / 2) - 24;
+            const screenY = (gameData.kirbyY * gameData.cellSize) - gameData.camera.y + (gameData.cellSize / 2) - 24;
+            
+            characterContainer.style.left = screenX + 'px';
+            characterContainer.style.top = screenY + 'px';
+        }
+
+        function resetGame() {
+            gameData.kirbyX = 1; gameData.kirbyY = 1; gameData.hearts = 0;
+            gameData.steps = 0; gameData.time = 0; gameData.collectedHearts = [];
+            gameData.camera.x = 0; gameData.camera.y = 0;
+            
+            if (gameData.timer) clearInterval(gameData.timer);
+            startTimer(); 
+            startGameLoop();
+            updateKirbyPosition(); 
+            updateUI();
+            updateKirbyMessage('🌸 ¡Kirby está listo para la gran aventura! 🌸');
+        }
+        
+        function startGameLoop() {
+            function gameLoop() {
+                drawMaze();
+                updateKirbyPosition();
+                if (document.getElementById('laberinto').classList.contains('active')) {
+                    requestAnimationFrame(gameLoop);
+                }
+            }
+            gameLoop();
+        }
+
+        function startTimer() {
+            gameData.timer = setInterval(() => {
+                gameData.time++; 
+                updateUI();
+            }, 1000);
+        }
+
+        function moveKirby(direction) {
+            let newX = gameData.kirbyX; 
+            let newY = gameData.kirbyY;
+            
+            switch(direction) {
+                case 'up': newY--; break;
+                case 'down': newY++; break;
+                case 'left': newX--; break;
+                case 'right': newX++; break;
+            }
+            
+            if (newX >= 0 && newX < gameData.mazeWidth && 
+                newY >= 0 && newY < gameData.mazeHeight && 
+                gameData.maze[newY][newX] === 0) {
+                
+                gameData.kirbyX = newX; 
+                gameData.kirbyY = newY; 
+                gameData.steps++;
+                
+                const characterSprite = document.getElementById('characterSprite');
+                if (direction === 'left') characterSprite.style.transform = 'scaleX(-1)';
+                else if (direction === 'right') characterSprite.style.transform = 'scaleX(1)';
+                
+                updateUI(); 
+                checkHeartCollection();
+            }
+        }
+
+        function checkHeartCollection() {
+            // Frases románticas para cuando se recoge un corazón
+            const frasesRomanticas = [
+                '💖 "Eres mi razón de sonreír cada día" 💖',
+                '🌹 "Tu amor ilumina mi mundo entero" 🌹',
+                '✨ "Contigo todo es más hermoso" ✨',
+                '💕 "Eres mi sueño hecho realidad" 💕',
+                '🌟 "Mi corazón late solo por ti" 🌟',
+                '💗 "Eres mi persona favorita en el universo" 💗',
+                '🦋 "Tu sonrisa es mi lugar feliz" 🦋',
+                '💫 "Juntos somos infinitos" 💫',
+                '🌸 "Eres la melodía de mi corazón" 🌸',
+                '💞 "Mi amor por ti crece cada día" 💞',
+                '🌺 "Eres mi refugio y mi aventura" 🌺',
+                '💘 "Contigo el amor es eterno" 💘'
+            ];
+            
+            gameData.heartPositions.forEach(([x, y], index) => {
+                if (gameData.kirbyX === x && gameData.kirbyY === y && !gameData.collectedHearts.includes(index)) {
+                    console.log('¡Corazón recolectado!', index); // Debug
+                    gameData.collectedHearts.push(index);
+                    gameData.hearts++;
+                    
+                    const characterSprite = document.getElementById('characterSprite');
+                    characterSprite.classList.add('character-happy');
+                    setTimeout(() => characterSprite.classList.remove('character-happy'), 800);
+                    
+                    // Seleccionar una frase romántica aleatoria
+                    const fraseAleatoria = frasesRomanticas[Math.floor(Math.random() * frasesRomanticas.length)];
+                    console.log('Frase seleccionada:', fraseAleatoria); // Debug
+                    
+                    // Agregar efecto visual extra
+                    const messageEl = document.getElementById('kirbyMessage');
+                    if (messageEl) {
+                        messageEl.style.color = '#ff1744';
+                        messageEl.style.fontWeight = 'bold';
+                        messageEl.style.fontSize = '18px';
+                    }
+                    
+                    updateKirbyMessage(fraseAleatoria);
+                    updateUI();
+                    
+                    if (gameData.hearts === gameData.totalHearts) {
+                        clearInterval(gameData.timer);
+                        setTimeout(() => {
+                            alert(`🎉 ¡INCREÍBLE! ¡Completaste el laberinto!\n\n⏰ Tiempo: ${formatTime(gameData.time)}\n👣 Pasos: ${gameData.steps}\n💖 Corazones: ${gameData.totalHearts}/${gameData.totalHearts}\n\n¡Eres absolutamente increíble mi amor! 💖✨🏆`);
+                            updateKirbyMessage('🎉 ¡Victoria total! ¡Eres la mejor! 💖✨');
+                        }, 500);
+                    }
+                }
+            });
+        }
+
+        function updateUI() {
+            document.getElementById('hearts').textContent = gameData.hearts + '/' + gameData.totalHearts;
+            document.getElementById('steps').textContent = gameData.steps;
+            document.getElementById('time').textContent = formatTime(gameData.time);
+        }
+
+        function updateKirbyMessage(message) {
+            const messageEl = document.getElementById('kirbyMessage');
+            if (messageEl) {
+                console.log('Mostrando mensaje:', message); // Debug
+                
+                // Efecto de aparición del mensaje
+                messageEl.style.opacity = '0';
+                messageEl.style.transform = 'scale(0.8)';
+                messageEl.textContent = message;
+                
+                // Animar la aparición
+                setTimeout(() => {
+                    messageEl.style.transition = 'all 0.3s ease-out';
+                    messageEl.style.opacity = '1';
+                    messageEl.style.transform = 'scale(1)';
+                }, 50);
+                
+                // Si es una frase romántica (contiene comillas), mostrar por más tiempo
+                const tiempoMostrar = message.includes('"') ? 6000 : 3000;
+                
+                setTimeout(() => {
+                    if (gameData.hearts < gameData.totalHearts) {
+                        messageEl.style.transition = 'all 0.3s ease-in';
+                        messageEl.style.opacity = '0.7';
+                        messageEl.textContent = '🌸 Kirby está explorando el laberinto... 🌸';
+                        setTimeout(() => {
+                            messageEl.style.opacity = '1';
+                        }, 300);
+                    }
+                }, tiempoMostrar);
+            } else {
+                console.log('No se encontró el elemento kirbyMessage'); // Debug
+            }
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('laberinto').classList.contains('active')) {
+                switch(e.key) {
+                    case 'ArrowUp': moveKirby('up'); e.preventDefault(); break;
+                    case 'ArrowDown': moveKirby('down'); e.preventDefault(); break;
+                    case 'ArrowLeft': moveKirby('left'); e.preventDefault(); break;
+                    case 'ArrowRight': moveKirby('right'); e.preventDefault(); break;
+                    case 'r': case 'R': resetGame(); e.preventDefault(); break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
