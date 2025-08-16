@@ -10,13 +10,13 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Comic Sans MS', cursive; 
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); 
+            background: linear-gradient(135deg, #d8bfd8 0%, #dda0dd 100%); 
             min-height: 100vh; color: #333; 
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
         header { text-align: center; margin-bottom: 30px; }
         h1 { 
-            font-size: 2.5em; color: #ff1744; 
+            font-size: 2.5em; color: #8b008b; 
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1); margin-bottom: 10px; 
         }
         .nav-buttons { 
@@ -24,7 +24,7 @@
             justify-content: center; margin-bottom: 30px; 
         }
         .nav-btn { 
-            background: linear-gradient(45deg, #ff69b4, #ff1744); 
+            background: linear-gradient(45deg, #9370db, #8b008b); 
             color: white; border: none; padding: 15px 25px; 
             border-radius: 25px; font-size: 16px; cursor: pointer; 
             transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
@@ -34,7 +34,7 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.3); 
         }
         .nav-btn.active { 
-            background: linear-gradient(45deg, #e91e63, #ad1457); 
+            background: linear-gradient(45deg, #9932cc, #8b008b); 
             transform: scale(1.05); 
         }
         .content-section { 
@@ -44,7 +44,7 @@
         }
         .content-section.active { display: block; }
         .section-title { 
-            color: #ff1744; font-size: 2em; text-align: center; 
+            color: #8b008b; font-size: 2em; text-align: center; 
             margin-bottom: 30px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); 
         }
         
@@ -100,13 +100,13 @@
         }
         
         .control-btn { 
-            background: #ff69b4; color: white; border: none; 
+            background: #9370db; color: white; border: none; 
             padding: 12px 16px; margin: 5px; border-radius: 10px; 
             font-size: 18px; cursor: pointer; transition: all 0.3s; 
             box-shadow: 0 3px 8px rgba(0,0,0,0.2);
         }
         .control-btn:hover { 
-            background: #e91e63; transform: translateY(-2px); 
+            background: #8b008b; transform: translateY(-2px); 
             box-shadow: 0 5px 12px rgba(0,0,0,0.3);
         }
         .control-btn:active { 
@@ -202,6 +202,281 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
+        /* Estilos para Bubu y animación de corazones */
+        .bubu-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 120px;
+            height: 120px;
+        }
+        
+        /* Estilos específicos para la sección de disparos */
+        .bubu-disparos-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            z-index: 10;
+            animation: bubuBounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bubuBounce {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) translateY(-10px) scale(1.05); }
+        }
+
+        /* Estilos para Corazón 3D */
+        .corazon3d-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #2d1b69, #8b008b, #9370db);
+            box-shadow: 0 10px 30px rgba(139, 0, 139, 0.4);
+            margin: 20px 0;
+        }
+
+        #corazon3d-canvas {
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+            border-radius: 20px;
+            background: transparent;
+            min-height: 500px;
+        }
+
+        .corazon3d-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            gap: 15px;
+        }
+
+        .corazon3d-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .corazon3d-btn.start-btn {
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            color: white;
+        }
+
+        .corazon3d-btn.start-btn:hover {
+            background: linear-gradient(45deg, #ff1493, #dc143c);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 20, 147, 0.4);
+        }
+
+        .corazon3d-btn.stop-btn {
+            background: linear-gradient(45deg, #ff4444, #cc0000);
+            color: white;
+        }
+
+        .corazon3d-btn.stop-btn:hover {
+            background: linear-gradient(45deg, #cc0000, #990000);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 68, 68, 0.4);
+        }
+
+        .corazon3d-info {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(147, 112, 219, 0.1);
+            border-radius: 15px;
+            border: 2px solid rgba(139, 0, 139, 0.2);
+        }
+
+        .corazon3d-info p {
+            margin: 8px 0;
+            color: #8b008b;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .disparos-hearts-area {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+        
+        .disparos-floating-heart {
+            position: absolute;
+            font-size: 24px;
+            color: #8b008b;
+            pointer-events: none;
+            text-shadow: 0 0 15px rgba(139, 0, 139, 0.7);
+            animation: disparosFloatToFormation 2.5s ease-out forwards;
+            z-index: 6;
+        }
+        
+        @keyframes disparosFloatToFormation {
+            0% {
+                opacity: 1;
+                transform: scale(0.8) rotate(0deg);
+            }
+            20% {
+                opacity: 1;
+                transform: scale(1) rotate(45deg);
+            }
+            80% {
+                opacity: 1;
+                transform: scale(1) rotate(315deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(360deg);
+            }
+        }
+        
+        .disparos-heart-formation {
+            position: absolute;
+            top: 50%;
+            right: 80px;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 250px;
+            z-index: 7;
+            pointer-events: none;
+        }
+        
+        .disparos-formed-heart {
+            position: absolute;
+            font-size: 18px;
+            color: #8b008b;
+            text-shadow: 0 0 12px rgba(139, 0, 139, 0.8);
+            animation: disparosHeartPulse 2.5s ease-in-out infinite;
+        }
+        
+        @keyframes disparosHeartPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.9;
+                filter: brightness(1);
+            }
+            50% {
+                transform: scale(1.3);
+                opacity: 1;
+                filter: brightness(1.2);
+            }
+        }
+        
+        @keyframes disparosHeartFormation {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-180deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.4) rotate(0deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(180deg);
+            }
+        }
+        
+        .hearts-animation-area {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+        
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            color: #ff1744;
+            animation: floatUp 4s ease-out forwards;
+            opacity: 0;
+            pointer-events: none;
+            text-shadow: 0 0 10px rgba(255, 23, 68, 0.5);
+        }
+        
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(0.8) rotate(0deg);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateY(-200px) scale(1) rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-400px) scale(0.6) rotate(360deg);
+            }
+        }
+        
+        .heart-formation {
+            position: fixed;
+            top: 50%;
+            right: 100px;
+            transform: translateY(-50%);
+            width: 200px;
+            height: 200px;
+            z-index: 998;
+            pointer-events: none;
+        }
+        
+        .formed-heart {
+            position: absolute;
+            font-size: 16px;
+            color: #ff1744;
+            animation: heartPulse 2s ease-in-out infinite;
+            text-shadow: 0 0 8px rgba(255, 23, 68, 0.6);
+        }
+        
+        @keyframes heartPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes heartFormation {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2) rotate(180deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(360deg);
+            }
+        }
+        
         /* Otros estilos necesarios */
         .upload-area { 
             background: #fce4ec; border: 3px dashed #ff69b4; border-radius: 15px; 
@@ -240,6 +515,18 @@
             .carta-text { padding: 25px; font-size: 16px; }
         }
     </style>
+    
+    <!-- Three.js y Ammo.js exactos como solicitaste -->
+    <script type="importmap">
+    {
+        "imports": {      
+            "three": "https://unpkg.com/three@0.177.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.177.0/examples/jsm/"
+        }
+    }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.4.2/chroma.min.js"></script>
+    <script src="https://cdn.babylonjs.com/ammo.js"></script>
 </head>
 <body>
     <div class="container">
@@ -250,6 +537,8 @@
 
         <nav class="nav-buttons">
             <button class="nav-btn active" onclick="showSection('laberinto')">🌟 Laberinto del Amor</button>
+            <button class="nav-btn" onclick="showSection('disparos')">💥 Disparos de Corazones</button>
+            <button class="nav-btn" onclick="showSection('corazon3d')">🌟 Corazón 3D</button>
             <button class="nav-btn" onclick="showSection('carta')">💌 Carta de Amor</button>
             <button class="nav-btn" onclick="showSection('fotos')">📸 Nuestras Fotos</button>
             <button class="nav-btn" onclick="showSection('emociones')">💭 Mis Emociones</button>
@@ -303,11 +592,98 @@
             </div>
         </section>
 
+        <!-- Sección Corazón 3D -->
+        <section id="corazon3d" class="content-section">
+            <h2 class="section-title">🌟 Corazón 3D con Física</h2>
+            <div style="text-align: center; margin: 30px 0;">
+                <p style="font-size: 18px; color: #8b008b; margin-bottom: 20px;">
+                    ¡Experimenta corazones 3D flotando con física realista! 💜✨
+                </p>
+                <p style="font-size: 16px; color: #666; margin-bottom: 30px;">
+                    Usa el mouse para rotar la vista y observa cómo los corazones caen y rebotan
+                </p>
+            </div>
+                
+            <div class="corazon3d-container">
+                <canvas id="corazon3d-canvas"></canvas>
+                <div class="corazon3d-controls">
+                    <button id="corazon3d-start" class="corazon3d-btn start-btn">🚀 Iniciar Corazones 3D</button>
+                    <button id="corazon3d-stop" class="corazon3d-btn stop-btn" style="display: none;">⏹️ Detener Física</button>
+                </div>
+            </div>
+                
+            <div class="corazon3d-info">
+                <p>🌟 Usa el mouse para rotar la vista</p>
+                <p>🎯 Los corazones caen por gravedad y rebotan</p>
+                <p>💫 Física 3D realista con Three.js y Ammo.js</p>
+            </div>
+        </section>
+
+        <!-- Sección Disparos de Corazones -->
+        <section id="disparos" class="content-section">
+            <h2 class="section-title">💥 Disparos de Corazones con Bubu</h2>
+            <div style="text-align: center; margin: 30px 0;">
+                <p style="font-size: 18px; color: #8b008b; margin-bottom: 20px;">
+                    ¡Bubu está disparando corazones de amor solo para ti! 💖✨
+                </p>
+                <p style="font-size: 16px; color: #666; margin-bottom: 30px;">
+                    Observa cómo los corazones salen volando y forman un gran corazón de amor en el aire
+                </p>
+            </div>
+            
+            <!-- Área de la animación de disparos -->
+            <div style="position: relative; min-height: 500px; background: linear-gradient(135deg, #e6e6fa 0%, #dda0dd 100%); border-radius: 20px; overflow: hidden; margin: 20px 0;">
+                
+                <!-- Área donde aparecerán los corazones flotantes -->
+                <div class="disparos-hearts-area" id="disparosHeartsArea"></div>
+                
+                <!-- Área donde se formará el corazón grande -->
+                <div class="disparos-heart-formation" id="disparosHeartFormation"></div>
+                
+                <!-- Personaje Bubu en el centro-izquierda -->
+                <div class="bubu-disparos-container">
+                    <div class="tenor-gif-embed" data-postid="12821460386313162042" data-share-method="host" data-aspect-ratio="1" data-width="100%">
+                        <a href="https://tenor.com/view/bubu-cute-bubu-gun-bubu-attack-bubu-bubu-angry-gif-12821460386313162042">Bubu Cute Bubu Gun Sticker</a>
+                        from <a href="https://tenor.com/search/bubu+cute-stickers">Bubu Cute Stickers</a>
+                    </div>
+                </div>
+                
+                <!-- Mensajes románticos -->
+                <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; text-align: center;">
+                    <p id="disparosMessage" style="font-size: 16px; color: #8b008b; font-weight: bold; background: rgba(255,255,255,0.9); padding: 10px; border-radius: 10px;">
+                        💖 Bubu está cargando amor para ti... 💖
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Controles de la animación -->
+            <div style="text-align: center; margin: 20px 0;">
+                <button class="control-btn" onclick="startDisparosAnimation()" style="background: #28a745; margin: 5px;">
+                    🚀 Comenzar Disparos
+                </button>
+                <button class="control-btn" onclick="pauseDisparosAnimation()" style="background: #ffc107; margin: 5px;">
+                    ⏸️ Pausar
+                </button>
+                <button class="control-btn" onclick="resetDisparosAnimation()" style="background: #dc3545; margin: 5px;">
+                    🔄 Reiniciar
+                </button>
+            </div>
+            
+            <div style="background: rgba(255,255,255,0.9); padding: 20px; border-radius: 15px; margin: 20px 0; text-align: center;">
+                <h4 style="color: #8b008b; margin-bottom: 15px;">💕 Información de los Disparos</h4>
+                <div style="display: flex; justify-content: space-around; flex-wrap: wrap; font-size: 16px;">
+                    <span>💖 Corazones Disparados: <span id="heartsFired" style="color: #8b008b; font-weight: bold;">0</span></span>
+                    <span>🎯 Corazones en Formación: <span id="heartsInFormation" style="color: #8b008b; font-weight: bold;">0</span></span>
+                    <span>⏱️ Tiempo Activo: <span id="disparosTime" style="color: #8b008b; font-weight: bold;">00:00</span></span>
+                </div>
+            </div>
+        </section>
+
         <!-- Sección Carta -->
         <section id="carta" class="content-section">
             <h2 class="section-title">💌 Carta de Amor</h2>
             <div class="carta-text">
-                <div class="carta-greeting">Mi Amor Hermoso</div>
+                <div class="carta-greeting">Mi Amor Hermosa</div>
                 <div class="carta-body">
                     <!-- El contenido se escribirá automáticamente con efecto typewriter -->
                 </div>
@@ -363,6 +739,8 @@
         </section>
     </div>
 
+    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+
     <script>
         let gameData = {
             kirbyX: 1, kirbyY: 1, hearts: 0, steps: 0, time: 0, timer: null,
@@ -374,9 +752,39 @@
             totalHearts: 8
         };
         let photoGallery = { photos: [], currentIndex: 0 };
+        let heartAnimationData = {
+            isActive: false,
+            heartFormation: [],
+            formationComplete: false,
+            heartInterval: null,
+            formationTimer: null
+        };
+        
+        let disparosData = {
+            isActive: false,
+            heartsFired: 0,
+            heartsInFormation: 0,
+            time: 0,
+            timer: null,
+            shootInterval: null,
+            formationInterval: null,
+            heartFormation: [],
+            loveParticles: [], // Array para las partículas de amor
+            animationId: null,
+            continuousFireId: null, // Para el disparo continuo
+            messages: [
+                "💖 ¡Bubu te está disparando amor puro! 💖",
+                "🌹 ¡Cada corazón lleva mis sentimientos! 🌹",
+                "✨ ¡Los disparos de amor son infinitos! ✨",
+                "💕 ¡Bubu nunca se queda sin munición romántica! 💕",
+                "🎯 ¡Todos los disparos van directo a tu corazón! 🎯",
+                "💫 ¡El amor de Bubu es imparable! 💫",
+                "🌟 ¡Cada corazón es una promesa de amor eterno! 🌟"
+            ]
+        };
 
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('💖 Página cargada - Laberinto Avanzado');
+            console.log('💖 Página cargada - Con Disparos de Corazones');
             initAllSections();
         });
 
@@ -398,6 +806,12 @@
                     initMaze();
                     startGameLoop();
                 }, 100);
+            } else if (sectionId === 'disparos') {
+                // Detener otras animaciones
+                stopAllAnimations();
+                setTimeout(() => {
+                    initDisparosSection();
+                }, 200);
             } else if (sectionId === 'carta') {
                 // Reiniciar la carta si ya se había mostrado
                 const cartaBody = document.querySelector('.carta-body');
@@ -1005,6 +1419,999 @@ Eres y serás siempre mi persona favorita en este mundo.`;
                     case 'ArrowRight': moveKirby('right'); e.preventDefault(); break;
                     case 'r': case 'R': resetGame(); e.preventDefault(); break;
                 }
+            }
+        });
+        
+        // SISTEMA DE ANIMACIÓN DE CORAZONES DE BUBU
+        
+        function stopAllAnimations() {
+            // Detener animaciones del sistema general
+            if (heartAnimationData.heartInterval) {
+                clearInterval(heartAnimationData.heartInterval);
+            }
+            
+            // Detener animaciones de disparos
+            if (disparosData.shootInterval) {
+                clearInterval(disparosData.shootInterval);
+            }
+            if (disparosData.formationInterval) {
+                clearInterval(disparosData.formationInterval);
+            }
+            if (disparosData.timer) {
+                clearInterval(disparosData.timer);
+            }
+        }
+        
+        // FUNCIONES PARA LA SECCIÓN DE DISPAROS DE CORAZONES
+        
+        function initDisparosSection() {
+            resetDisparosAnimation();
+            updateDisparosMessage("💖 ¡Bubu está listo para disparar corazones de amor! 💖");
+        }
+        
+        function startDisparosAnimation() {
+            if (disparosData.isActive) return;
+            
+            disparosData.isActive = true;
+            disparosData.time = 0;
+            
+            // Iniciar timer
+            disparosData.timer = setInterval(() => {
+                disparosData.time++;
+                updateDisparosUI();
+            }, 1000);
+            
+            // Comenzar disparos CONTINUOS (sin pausa)
+            function continuousFire() {
+                if (disparosData.isActive) {
+                    fireHeart(); // Dispara ráfaga de corazones
+                    // Programar el siguiente disparo inmediatamente
+                    disparosData.continuousFireId = setTimeout(continuousFire, 200); // Disparo cada 200ms
+                }
+            }
+            
+            // Iniciar el disparo continuo
+            continuousFire();
+            
+            // Cambiar mensajes cada cierto tiempo
+            setInterval(() => {
+                if (disparosData.isActive) {
+                    const randomMessage = disparosData.messages[Math.floor(Math.random() * disparosData.messages.length)];
+                    updateDisparosMessage(randomMessage);
+                }
+            }, 3000);
+            
+            updateDisparosMessage("🚀 ¡Bubu comenzó a disparar corazones continuamente! 🚀");
+        }
+        
+        function pauseDisparosAnimation() {
+            disparosData.isActive = false;
+            clearInterval(disparosData.shootInterval);
+            clearTimeout(disparosData.continuousFireId); // Detener disparo continuo
+            clearInterval(disparosData.timer);
+            if (disparosData.animationId) {
+                cancelAnimationFrame(disparosData.animationId);
+                disparosData.animationId = null;
+            }
+            updateDisparosMessage("⏸️ Disparos pausados... ¡Bubu está descansando! ⏸️");
+        }
+        
+        function resetDisparosAnimation() {
+            disparosData.isActive = false;
+            disparosData.heartsFired = 0;
+            disparosData.heartsInFormation = 0;
+            disparosData.time = 0;
+            
+            clearInterval(disparosData.shootInterval);
+            clearTimeout(disparosData.continuousFireId); // Detener disparo continuo
+            clearInterval(disparosData.formationInterval);
+            clearInterval(disparosData.timer);
+            
+            // Limpiar partículas de amor
+            disparosData.loveParticles.forEach(p => {
+                if (p.element.parentNode) {
+                    p.element.parentNode.removeChild(p.element);
+                }
+            });
+            disparosData.loveParticles = [];
+            
+            if (disparosData.animationId) {
+                cancelAnimationFrame(disparosData.animationId);
+                disparosData.animationId = null;
+            }
+            
+            // Limpiar corazones
+            const heartsArea = document.getElementById('disparosHeartsArea');
+            const formationArea = document.getElementById('disparosHeartFormation');
+            
+            if (heartsArea) heartsArea.innerHTML = '';
+            if (formationArea) formationArea.innerHTML = '';
+            
+            disparosData.heartFormation = [];
+            updateDisparosUI();
+            updateDisparosMessage("🔄 ¡Todo listo! Bubu ha recargado sus disparos de amor 🔄");
+        }
+        
+        function fireHeart() {
+            const heartsArea = document.getElementById('disparosHeartsArea');
+            if (!heartsArea) return;
+            
+            // Crear ráfaga de 6-10 partículas de amor con física
+            const burstCount = 3 + Math.floor(Math.random() * 3); // 3-5 corazones por ráfaga (continuo)
+            
+            for (let i = 0; i < burstCount; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'disparos-floating-heart';
+                    heart.textContent = ['�', '�💖', '💕', '💗', '💓', '💝', '�'][Math.floor(Math.random() * 7)];
+                    
+                    // Posición inicial exacta en el centro (Bubu)
+                    const centerX = heartsArea.clientWidth / 2;
+                    const centerY = heartsArea.clientHeight / 2;
+                    
+                    heart.style.left = centerX + 'px';
+                    heart.style.top = centerY + 'px';
+                    
+                    heartsArea.appendChild(heart);
+                    
+                    // Obtener una posición aleatoria del corazón grande para este corazón
+                    const heartPoints = generateHeartPointsDisparos();
+                    const targetPoint = heartPoints[Math.floor(Math.random() * heartPoints.length)];
+                    
+                    // Convertir a coordenadas absolutas del área de disparos
+                    const formationArea = document.getElementById('disparosHeartFormation');
+                    const formationRect = formationArea ? formationArea.getBoundingClientRect() : null;
+                    const heartsAreaRect = heartsArea.getBoundingClientRect();
+                    
+                    let targetX, targetY;
+                    if (formationRect) {
+                        targetX = formationRect.left - heartsAreaRect.left + targetPoint.x;
+                        targetY = formationRect.top - heartsAreaRect.top + targetPoint.y;
+                    } else {
+                        // Fallback si no encuentra el área de formación
+                        targetX = heartsArea.clientWidth / 2 + targetPoint.x - 125;
+                        targetY = heartsArea.clientHeight / 2 + targetPoint.y - 125;
+                    }
+                    
+                    // Crear partícula de física para este corazón
+                    const particle = {
+                        element: heart,
+                        x: centerX,
+                        y: centerY,
+                        vx: 0,
+                        vy: 0,
+                        targetX: targetX,
+                        targetY: targetY,
+                        opacity: 0.8,
+                        scale: 0.8,
+                        life: 0
+                    };
+                    
+                    // Añadir a la lista de partículas activas
+                    disparosData.loveParticles.push(particle);
+                    
+                    disparosData.heartsFired++;
+                    updateDisparosUI();
+                    
+                }, i * 50); // Intervalo más rápido entre corazones de la ráfaga
+            }
+            
+            // Iniciar o continuar la animación de partículas
+            if (!disparosData.animationId && disparosData.isActive) {
+                animateLoveParticles();
+            }
+        }
+        
+        // Función de animación de partículas de amor (como en tu ejemplo)
+        function animateLoveParticles() {
+            const heartsArea = document.getElementById('disparosHeartsArea');
+            if (!heartsArea || !disparosData.isActive) return;
+            
+            // Iterar sobre todas las partículas
+            disparosData.loveParticles.forEach((p, index) => {
+                if (!p.element.parentNode) return;
+                
+                // Calcular dirección hacia el objetivo (como en tu código)
+                const dx = p.targetX - p.x;
+                const dy = p.targetY - p.y;
+                
+                // Aplicar velocidad hacia el objetivo (más rápida)
+                p.vx = dx * 0.15;  // Aumenté de 0.08 a 0.15 para mayor velocidad
+                p.vy = dy * 0.15;
+                
+                // Actualizar posición
+                p.x += p.vx;
+                p.y += p.vy;
+                
+                // Actualizar opacidad (se desvanece gradualmente)
+                p.opacity = Math.min(p.opacity + 0.02, 1);
+                
+                // Actualizar escala con movimiento sinusoidal
+                p.scale = 0.8 + 0.03 * Math.sin(Date.now() * 0.003 + p.x);
+                
+                // Aplicar cambios al elemento
+                p.element.style.left = p.x + 'px';
+                p.element.style.top = p.y + 'px';
+                p.element.style.opacity = p.opacity;
+                p.element.style.transform = `scale(${p.scale}) rotate(${p.life * 1.5}deg)`;
+                
+                // Incrementar vida
+                p.life += 1;
+                
+                // Cuando llegan al objetivo, se quedan ahí formando el corazón
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 25) {
+                    // Convertir la partícula en parte de la formación
+                    p.element.style.position = 'absolute';
+                    p.element.style.left = p.targetX + 'px';
+                    p.element.style.top = p.targetY + 'px';
+                    p.element.style.transform = 'scale(1.2)';
+                    p.element.className = 'disparos-formed-heart';
+                    p.element.style.animation = 'disparosHeartPulse 2s ease-in-out infinite';
+                    
+                    // Mover al área de formación
+                    const formationArea = document.getElementById('disparosHeartFormation');
+                    if (formationArea) {
+                        // Ajustar posición relativa a la formación
+                        const heartsAreaRect = heartsArea.getBoundingClientRect();
+                        const formationRect = formationArea.getBoundingClientRect();
+                        const relativeX = p.targetX - (formationRect.left - heartsAreaRect.left);
+                        const relativeY = p.targetY - (formationRect.top - heartsAreaRect.top);
+                        
+                        p.element.style.left = relativeX + 'px';
+                        p.element.style.top = relativeY + 'px';
+                        formationArea.appendChild(p.element);
+                    }
+                    
+                    disparosData.heartsInFormation++;
+                    updateDisparosUI();
+                    
+                    // Remover de la lista de partículas activas
+                    disparosData.loveParticles.splice(index, 1);
+                }
+                
+                // Remover partículas muy viejas que no llegaron
+                if (p.life > 200) {
+                    if (p.element.parentNode) {
+                        p.element.parentNode.removeChild(p.element);
+                    }
+                    disparosData.loveParticles.splice(index, 1);
+                }
+            });
+            
+            // Continuar animación (ahora siempre mientras esté activo)
+            if (disparosData.isActive) {
+                disparosData.animationId = requestAnimationFrame(animateLoveParticles);
+            } else {
+                disparosData.animationId = null;
+            }
+        }
+        
+        // Crear corazón en la formación
+        function createFormationHeart(x, y) {
+            const formationArea = document.getElementById('disparosHeartFormation');
+            if (!formationArea) return;
+            
+            const heart = document.createElement('div');
+            heart.className = 'disparos-formed-heart';
+            heart.textContent = ['💜', '💖', '💕', '💗'][Math.floor(Math.random() * 4)];
+            heart.style.left = (x - formationArea.offsetLeft) + 'px';
+            heart.style.top = (y - formationArea.offsetTop) + 'px';
+            heart.style.animation = 'disparosHeartFormation 1.5s ease-out forwards, disparosHeartPulse 2s ease-in-out infinite';
+            
+            formationArea.appendChild(heart);
+            disparosData.heartsInFormation++;
+            updateDisparosUI();
+        }
+        
+        function startHeartFormationDisparos() {
+            const formationArea = document.getElementById('disparosHeartFormation');
+            if (!formationArea) return;
+            
+            const heartPoints = generateHeartPointsDisparos();
+            let currentIndex = 0;
+            
+            disparosData.formationInterval = setInterval(() => {
+                if (currentIndex >= heartPoints.length || !disparosData.isActive) {
+                    clearInterval(disparosData.formationInterval);
+                    return;
+                }
+                
+                const point = heartPoints[currentIndex];
+                createFormedHeartDisparos(point.x, point.y, currentIndex);
+                currentIndex++;
+                disparosData.heartsInFormation++;
+                updateDisparosUI();
+            }, 300);
+        }
+        
+        function generateHeartPointsDisparos() {
+            const points = [];
+            const centerX = 125;
+            const centerY = 125;
+            const scale = 80;
+            
+            // Generar puntos del contorno del corazón
+            for (let t = 0; t < Math.PI * 2; t += 0.15) {
+                const x = scale * (16 * Math.pow(Math.sin(t), 3));
+                const y = scale * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+                
+                points.push({
+                    x: centerX + x / 20,
+                    y: centerY - y / 20 + 30
+                });
+            }
+            
+            // Generar puntos para rellenar el interior del corazón
+            const interiorPoints = 80; // Número de puntos interiores
+            for (let i = 0; i < interiorPoints; i++) {
+                let attempts = 0;
+                let pointAdded = false;
+                
+                // Intentar generar un punto válido dentro del corazón
+                while (attempts < 50 && !pointAdded) {
+                    const randomX = (Math.random() - 0.5) * scale * 1.6; // Rango amplio
+                    const randomY = (Math.random() - 0.5) * scale * 1.2; // Rango vertical
+                    
+                    // Verificar si el punto está dentro del corazón
+                    if (isPointInsideHeart(randomX, randomY, scale)) {
+                        points.push({
+                            x: centerX + randomX / 20,
+                            y: centerY - randomY / 20 + 30
+                        });
+                        pointAdded = true;
+                    }
+                    attempts++;
+                }
+            }
+            
+            return points;
+        }
+        
+        // Función para verificar si un punto está dentro del corazón
+        function isPointInsideHeart(x, y, scale) {
+            // Normalizar las coordenadas
+            const nx = x / (scale * 16);
+            const ny = y / (scale * 13);
+            
+            // Usar la ecuación implícita del corazón
+            // ((x²+y²-1)³) - x²y³ ≤ 0
+            const term1 = Math.pow(nx * nx + ny * ny - 1, 3);
+            const term2 = nx * nx * Math.pow(ny, 3);
+            
+            return (term1 - term2) <= 0.05; // Tolerancia para incluir más puntos
+        }
+        
+        function createFormedHeartDisparos(x, y, index) {
+            const formationArea = document.getElementById('disparosHeartFormation');
+            if (!formationArea) return;
+            
+            const heart = document.createElement('div');
+            heart.className = 'disparos-formed-heart';
+            heart.textContent = ['💖', '💕', '💗', '💓', '💝'][index % 5];
+            heart.style.left = x + 'px';
+            heart.style.top = y + 'px';
+            heart.style.animation = `disparosHeartFormation 1.2s ease-out forwards, disparosHeartPulse 2.5s ease-in-out infinite ${index * 0.05}s`;
+            
+            formationArea.appendChild(heart);
+            disparosData.heartFormation.push(heart);
+        }
+        
+        function updateDisparosUI() {
+            const heartsFiredEl = document.getElementById('heartsFired');
+            const heartsInFormationEl = document.getElementById('heartsInFormation');
+            const timeEl = document.getElementById('disparosTime');
+            
+            if (heartsFiredEl) heartsFiredEl.textContent = disparosData.heartsFired;
+            if (heartsInFormationEl) heartsInFormationEl.textContent = disparosData.heartsInFormation;
+            if (timeEl) timeEl.textContent = formatTime(disparosData.time);
+        }
+        
+        function updateDisparosMessage(message) {
+            const messageEl = document.getElementById('disparosMessage');
+            if (messageEl) {
+                messageEl.textContent = message;
+                messageEl.style.animation = 'none';
+                messageEl.offsetHeight; // Trigger reflow
+                messageEl.style.animation = 'fadeIn 0.5s ease-in-out';
+            }
+        }
+        
+        function startBubuHeartAnimation() {
+            heartAnimationData.isActive = true;
+            
+            // Crear corazones flotantes cada cierto tiempo
+            heartAnimationData.heartInterval = setInterval(() => {
+                if (heartAnimationData.isActive) {
+                    createFloatingHeart();
+                }
+            }, 800);
+            
+            // Empezar a formar el corazón grande después de 3 segundos
+            setTimeout(() => {
+                startHeartFormation();
+            }, 3000);
+        }
+        
+        function createFloatingHeart() {
+            const heartsArea = document.getElementById('heartsArea');
+            if (!heartsArea) return;
+            
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.textContent = ['💖', '💕', '💗', '💓', '💝'][Math.floor(Math.random() * 5)];
+            
+            // Posición inicial cerca del centro-inferior (donde está Bubu)
+            const startX = window.innerWidth / 2 + (Math.random() - 0.5) * 100;
+            const startY = window.innerHeight - 150;
+            
+            heart.style.left = startX + 'px';
+            heart.style.top = startY + 'px';
+            
+            heartsArea.appendChild(heart);
+            
+            // Remover el corazón después de la animación
+            setTimeout(() => {
+                if (heart.parentNode) {
+                    heart.parentNode.removeChild(heart);
+                }
+            }, 4000);
+        }
+        
+        function startHeartFormation() {
+            const heartFormation = document.getElementById('heartFormation');
+            if (!heartFormation || heartAnimationData.formationComplete) return;
+            
+            // Coordenadas para formar un corazón (corazón matemático)
+            const heartPoints = generateHeartPoints();
+            let currentPointIndex = 0;
+            
+            const formationInterval = setInterval(() => {
+                if (currentPointIndex >= heartPoints.length) {
+                    clearInterval(formationInterval);
+                    heartAnimationData.formationComplete = true;
+                    return;
+                }
+                
+                const point = heartPoints[currentPointIndex];
+                createFormedHeart(point.x, point.y, currentPointIndex);
+                currentPointIndex++;
+            }, 200);
+        }
+        
+        function generateHeartPoints() {
+            const points = [];
+            const centerX = 100;
+            const centerY = 100;
+            const scale = 60;
+            
+            // Generar puntos de un corazón usando ecuación paramétrica
+            for (let t = 0; t < Math.PI * 2; t += 0.3) {
+                const x = scale * (16 * Math.pow(Math.sin(t), 3));
+                const y = scale * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+                
+                points.push({
+                    x: centerX + x / 16,
+                    y: centerY - y / 16 + 20
+                });
+            }
+            
+            return points;
+        }
+        
+        function createFormedHeart(x, y, index) {
+            const heartFormation = document.getElementById('heartFormation');
+            if (!heartFormation) return;
+            
+            const heart = document.createElement('div');
+            heart.className = 'formed-heart';
+            heart.textContent = ['💖', '💕', '💗', '💓', '💝'][index % 5];
+            heart.style.left = x + 'px';
+            heart.style.top = y + 'px';
+            heart.style.animation = `heartFormation 1s ease-out forwards, heartPulse 2s ease-in-out infinite ${index * 0.1}s`;
+            
+            heartFormation.appendChild(heart);
+            
+            // Agregar a la formación
+            heartAnimationData.heartFormation.push(heart);
+        }
+        
+        // Función para reiniciar la animación
+        function resetHeartAnimation() {
+            heartAnimationData.formationComplete = false;
+            
+            // Limpiar corazones formados
+            const heartFormation = document.getElementById('heartFormation');
+            if (heartFormation) {
+                heartFormation.innerHTML = '';
+            }
+            
+            heartAnimationData.heartFormation = [];
+            
+            // Reiniciar la formación después de un momento
+            setTimeout(() => {
+                startHeartFormation();
+            }, 2000);
+        }
+        
+        // Reiniciar animación cada 30 segundos para mantenerla fresca
+        setInterval(() => {
+            if (heartAnimationData.formationComplete) {
+                resetHeartAnimation();
+            }
+        }, 30000);
+
+        // ================================
+        // FUNCIONES PARA CORAZÓN 3D (CÓDIGO ORIGINAL EXACTO)
+        // ================================
+
+        let corazon3DActive = false;
+
+        async function initCorazon3D() {
+            if (corazon3DActive) return;
+            
+            try {
+                console.log('Iniciando Corazón 3D con código original...');
+                
+                // Crear el script del corazón 3D como módulo
+                const corazonScript = document.createElement('script');
+                corazonScript.type = 'module';
+                corazonScript.textContent = `
+/*!
+Heart Packing 3D #1 自由回転
+https://codepen.io/wakana-k/pen/LEVgzry
+
+Asset: 3D heart model by WakanaY.K. Commercial use is not permitted.
+*/
+console.clear();
+import * as h from "three";
+import { OrbitControls as i } from "three/addons/controls/OrbitControls.js";
+import { OBJLoader as p } from "three/addons/loaders/OBJLoader.js";
+import { RGBELoader as e } from "three/addons/loaders/RGBELoader.js";
+import "three/addons/exporters/PLYExporter.js";
+import * as g from "three/addons/utils/BufferGeometryUtils.js";
+
+{
+  let t, d, n, o, l, c, m, r, u, w;
+  function a() {
+    const canvas = document.getElementById('corazon3d-canvas');
+    if (!canvas || !t || !n) return;
+    
+    t.aspect = canvas.clientWidth / canvas.clientHeight;
+    t.updateProjectionMatrix();
+    n.setSize(canvas.clientWidth, canvas.clientHeight);
+  }
+  function s() {
+    if (!window.corazon3DActive) return;
+    requestAnimationFrame(s);
+    if (o) o.update();
+    if (n && d && t) n.render(d, t);
+  }
+  
+  window.corazon3DActive = true;
+  
+  new e().load(
+    "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/equirectangular/quarry_01_1k.hdr",
+    (e) => {
+      e.mapping = h.EquirectangularReflectionMapping;
+      c = e;
+      
+      (async function () {
+        m = await AmmoPhysics();
+        r = new h.Vector3();
+        
+        // Configurar cámara para el canvas específico
+        const canvas = document.getElementById('corazon3d-canvas');
+        if (!canvas) return;
+        
+        t = new h.PerspectiveCamera(
+          60, // Campo de visión más amplio para ver mejor el corazón grande
+          canvas.clientWidth / canvas.clientHeight,
+          0.1,
+          1e3
+        );
+        t.position.set(0, 0, 3.5); // Alejar un poco más la cámara
+        t.lookAt(0, 0, 0);
+        
+        // Crear escena con fondo púrpura
+        d = new h.Scene();
+        d.background = new h.Color(0x2d1b69); // Fondo púrpura como tu tema
+        d.environment = c;
+        
+        // Luces
+        d.add(new h.AmbientLight(16777215, 5));
+        d.add(new h.HemisphereLight(16777215, 4473924, 5));
+        
+        // Renderer para el canvas específico
+        n = new h.WebGLRenderer({
+          canvas: canvas,
+          antialias: true,
+          preserveDrawingBuffer: true
+        });
+        n.setPixelRatio(window.devicePixelRatio);
+        n.setSize(canvas.clientWidth, canvas.clientHeight);
+        
+        // Controles
+        o = new i(t, canvas);
+        o.target.y = 0;
+        o.autoRotate = true; // Activar rotación automática para ver mejor el corazón
+        o.autoRotateSpeed = 1.0; // Velocidad de rotación
+        o.enableDamping = true;
+        o.enablePan = false;
+        o.minDistance = 1;
+        o.minPolarAngle = 0;
+        o.maxPolarAngle = Math.PI / 2;
+        o.update();
+        
+        // Crear corazones
+        (function () {
+          const r = new h.MeshPhongMaterial({
+              envMap: c,
+              reflectivity: 1,
+              emissive: 0,
+              specular: 16777215,
+              shininess: 100
+            }),
+            i = new h.Matrix4(),
+            a = new h.Color(),
+            s = ["deeppink", "lightpink"],
+            e = new p();
+            
+          e.load(
+            "https://happy358.github.io/misc/model/Heart/Heart.obj",
+            function (e) {
+              let t = e.children[0].geometry;
+              t = t.index ? t : g.mergeVertices(t);
+              t.computeVertexNormals();
+              t.computeBoundingBox();
+              t.computeBoundingSphere();
+              
+              const terrainMaterial = new h.MeshLambertMaterial({
+                color: new h.Color("pink"),
+                side: h.DoubleSide,
+                wireframe: true
+              });
+              
+              // Terreno (corazón invisible para colisiones)
+              l = t.clone();
+              l.scale(0.1, 0.1, 0.11);
+              t.center();
+              t.computeVertexNormals();
+              t.computeBoundingBox();
+              t.computeBoundingSphere();
+              l.name = "terrain";
+              
+              w = new h.Mesh(l, terrainMaterial);
+              w.visible = false;
+              w.userData.physics = { mass: 0 };
+              d.add(w);
+              m.addMesh(w, 0);
+              
+              // Corazones instanciados - USAR POSICIONES ALEATORIAS ORIGINALES
+              l = t.clone();
+              l.scale(0.015, 0.015, 0.015);
+              l.computeVertexNormals();
+              l.computeBoundingBox();
+              l.computeBoundingSphere();
+              
+              u = new h.InstancedMesh(l, r, 50);
+              u.instanceMatrix.setUsage(h.DynamicDrawUsage);
+              u.userData.physics = { mass: 1 };
+              
+              // Aquí es donde se distribuyen las instancias de los corazones - FÓRMULA DE CORAZÓN
+              for (let e = 0; e < u.count; e++) {
+                let t = e / u.count * Math.PI * 2; // Calculamos el ángulo (una vuelta completa)
+                let x = 16 * Math.pow(Math.sin(t), 3); // Fórmula para X
+                let y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t); // Fórmula para Y
+                let z = h.MathUtils.randFloat(-0.3, 0.3); // Profundidad aleatoria
+
+                // Asignamos las posiciones usando las fórmulas para X y Y con separación
+                i.setPosition(
+                  x * 0.035 + h.MathUtils.randFloat(-0.03, 0.03), // Escala + pequeña variación
+                  y * 0.035 + h.MathUtils.randFloat(-0.03, 0.03), // Escala + pequeña variación  
+                  z
+                );
+
+                // Asignamos las matrices a las instancias y colores
+                u.setMatrixAt(e, i);
+                u.setColorAt(e, a.set(s[e % s.length]));
+              }
+              
+              d.add(u);
+              m.addMesh(u, 1);
+              
+              // Mostrar botón de stop
+              document.getElementById('corazon3d-start').style.display = 'none';
+              document.getElementById('corazon3d-stop').style.display = 'inline-block';
+              
+              console.log('Corazones 3D cargados correctamente');
+            }
+          );
+        })();
+        
+        s();
+        window.addEventListener("resize", a);
+      })();
+    }
+  );
+}
+
+// Función AmmoPhysics (código original exacto)
+async function AmmoPhysics() {
+  if ("Ammo" in window == false) {
+    console.error("AmmoPhysics: Couldn't find Ammo.js");
+    return {
+      addMesh: () => {},
+      destroy: () => {}
+    };
+  }
+  
+  const g = await Ammo();
+  const o = new g.btDefaultCollisionConfiguration(),
+    r = new g.btCollisionDispatcher(o),
+    i = new g.btDbvtBroadphase(),
+    a = new g.btSequentialImpulseConstraintSolver(),
+    v = new g.btDiscreteDynamicsWorld(r, i, a, o);
+    
+  v.setGravity(new g.btVector3(0, -9.8, 0));
+  const M = new g.btTransform();
+  let x = new g.btVector3(0, 0, 0);
+  const V = [],
+    B = new WeakMap();
+    
+  function n(e, t = 0) {
+    var n, o, r,
+      i = (function (e) {
+        var t = e.parameters;
+        let n;
+        if ("BoxGeometry" === e.type) {
+          var o = void 0 !== t.width ? t.width / 2 : 0.5,
+            r = void 0 !== t.height ? t.height / 2 : 0.5,
+            i = void 0 !== t.depth ? t.depth / 2 : 0.5;
+          n = new g.btBoxShape(new g.btVector3(o, r, i));
+        } else if ("IcosahedronGeometry" === e.type) {
+          o = void 0 !== t.radius ? t.radius : 1;
+          n = new g.btSphereShape(o);
+        } else if ("terrain" == e.name) {
+          var a = e.attributes.position.array,
+            s = e.index.array,
+            d = new Ammo.btTriangleMesh();
+          for (let e = 0; e < s.length; e += 3) {
+            var l = new Ammo.btVector3(
+                a[3 * s[e]],
+                a[3 * s[e] + 1],
+                a[3 * s[e] + 2]
+              ),
+              c = new Ammo.btVector3(
+                a[3 * s[e + 1]],
+                a[3 * s[e + 1] + 1],
+                a[3 * s[e + 1] + 2]
+              ),
+              m = new Ammo.btVector3(
+                a[3 * s[e + 2]],
+                a[3 * s[e + 2] + 1],
+                a[3 * s[e + 2] + 2]
+              );
+            d.addTriangle(l, c, m);
+          }
+          n = new Ammo.btBvhTriangleMeshShape(d, true, true);
+        } else {
+          var u = e.getAttribute("position");
+          n = new Ammo.btConvexHullShape();
+          for (let e = 0; e < u.count; e++) {
+            var w = u.getX(e),
+              h = u.getY(e),
+              p = u.getZ(e);
+            n.addPoint(new Ammo.btVector3(w, h, p), true);
+          }
+        }
+        return n.setMargin(0.055), n;
+      })(e.geometry);
+      
+    if (null !== i) {
+      if (e.isInstancedMesh) {
+        var a = e, s = t, d = i, l = a.instanceMatrix.array, c = [];
+        for (let e = 0; e < a.count; e++) {
+          var m = 16 * e, u = new g.btTransform();
+          u.setFromOpenGLMatrix(l.slice(m, 16 + m));
+          var w = new g.btDefaultMotionState(u), h = new g.btVector3(0, 0, 0);
+          d.calculateLocalInertia(s, h);
+          var p = new g.btRigidBodyConstructionInfo(s, w, d, h), f = new g.btRigidBody(p);
+          f.setRestitution(0);
+          v.addRigidBody(f);
+          c.push(f);
+        }
+        0 < s && (V.push(a), B.set(a, c));
+      } else if (e.isMesh) {
+        n = e.position;
+        o = e.quaternion;
+        r = new g.btTransform();
+        r.setIdentity();
+        r.setOrigin(new g.btVector3(n.x, n.y, n.z));
+        r.setRotation(new g.btQuaternion(o.x, o.y, o.z, o.w));
+        var b = new g.btDefaultMotionState(r), y = new g.btVector3(0, 0, 0);
+        i.calculateLocalInertia(t, y);
+        var T = new g.btRigidBodyConstructionInfo(t, b, i, y), A = new g.btRigidBody(T);
+        A.setRestitution(0);
+        v.addRigidBody(A);
+        0 < t && (V.push(e), B.set(e, A));
+      }
+    }
+  }
+  
+  let A = 0;
+  let s = setInterval(function () {
+    if (!window.corazon3DActive) return;
+    
+    var e = performance.now();
+    if (0 < A) {
+      var t = (e - A) / 1000;
+      v.stepSimulation(t, 10);
+      
+      for (let e = 0, t = V.length; e < t; e++) {
+        var n = V[e];
+        if (n.isInstancedMesh) {
+          var o = n.instanceMatrix.array, r = B.get(n);
+          
+          for (let t = 0; t < r.length; t++) {
+            r[t].getMotionState().getWorldTransform(M);
+            var i = M.getOrigin();
+            let e;
+            if (i.y() < -3) {
+              // RESETEAR EXACTAMENTE COMO EN EL CÓDIGO ORIGINAL - POSICIÓN (0,0,0)
+              x.setValue(0, 0, 0);
+              e = M.getRotation();
+              e.x(0); e.y(0); e.z(0);
+              M.setIdentity();
+              M.setOrigin(x);
+              M.setRotation(e);
+              r[t].setWorldTransform(M);
+              x.setValue(0, 0, 0);
+              r[t].setLinearVelocity(x);
+              r[t].setAngularVelocity(x);
+              r[t].clearForces();
+            } else {
+              e = M.getRotation();
+            }
+            
+            // Actualizar matriz de instancia
+            var a = e.x(), s = e.y(), d = e.z(), l = e.w();
+            var c = a + a, m = s + s, u = d + d;
+            var w = a * c, h = a * m, p = a * u;
+            var f = s * m, b = s * u, y = d * u;
+            var T = c * l, A = m * l, C = u * l;
+            
+            var R = 16 * t;
+            o[R + 0] = 1 - (f + y);
+            o[R + 1] = h + C;
+            o[R + 2] = p - A;
+            o[R + 3] = 0;
+            o[R + 4] = h - C;
+            o[R + 5] = 1 - (w + y);
+            o[R + 6] = b + T;
+            o[R + 7] = 0;
+            o[R + 8] = p + A;
+            o[R + 9] = b - T;
+            o[R + 10] = 1 - (w + f);
+            o[R + 11] = 0;
+            o[R + 12] = i.x();
+            o[R + 13] = i.y();
+            o[R + 14] = i.z();
+            o[R + 15] = 1;
+          }
+          n.instanceMatrix.needsUpdate = true;
+          n.computeBoundingSphere();
+        } else if (n.isMesh) {
+          B.get(n).getMotionState().getWorldTransform(M);
+          var S = M.getOrigin(), E = M.getRotation();
+          n.position.set(S.x(), S.y(), S.z());
+          n.quaternion.set(E.x(), E.y(), E.z(), E.w());
+        }
+      }
+    }
+    A = e;
+  }, 1000 / 60);
+  
+  return {
+    addScene: function (e) {
+      e.traverse(function (e) {
+        var t;
+        e.isMesh && (t = e.userData.physics) && n(e, t.mass);
+      });
+    },
+    addMesh: n,
+    setMeshPosition: function (e, t, n = 0) {
+      if (e.isInstancedMesh) {
+        n = B.get(e)[n];
+        n.setAngularVelocity(new g.btVector3(0, 0, 0));
+        n.setLinearVelocity(new g.btVector3(0, 0, 0));
+        M.setIdentity();
+        M.setOrigin(new g.btVector3(t.x, t.y, t.z));
+        n.setWorldTransform(M);
+      } else if (e.isMesh) {
+        n = B.get(e);
+        n.setAngularVelocity(new g.btVector3(0, 0, 0));
+        n.setLinearVelocity(new g.btVector3(0, 0, 0));
+        M.setIdentity();
+        M.setOrigin(new g.btVector3(t.x, t.y, t.z));
+        n.setWorldTransform(M);
+      }
+    },
+    destroy: function () {
+      clearInterval(s);
+      for (const t of V) {
+        var e = B.get(t);
+        if (Array.isArray(e)) {
+          for (const n of e) {
+            v.removeRigidBody(n);
+            g.destroy(n);
+          }
+        } else {
+          v.removeRigidBody(e);
+          g.destroy(e);
+        }
+        B.delete(t);
+      }
+      V.length = 0;
+      g.destroy(v);
+      g.destroy(a);
+      g.destroy(i);
+      g.destroy(r);
+      g.destroy(o);
+      g.destroy(x);
+      g.destroy(M);
+    }
+  };
+}
+                `;
+                
+                // Agregar el script al documento
+                document.head.appendChild(corazonScript);
+                
+                corazon3DActive = true;
+                
+            } catch (error) {
+                console.error('Error al cargar Corazón 3D:', error);
+                alert('Error: ' + error.message);
+            }
+        }
+
+        function stopCorazon3D() {
+            console.log('Deteniendo Corazón 3D...');
+            
+            window.corazon3DActive = false;
+            corazon3DActive = false;
+            
+            // Limpiar canvas
+            const canvas = document.getElementById('corazon3d-canvas');
+            if (canvas) {
+                const context = canvas.getContext('webgl') || canvas.getContext('webgl2');
+                if (context) {
+                    context.clear(context.COLOR_BUFFER_BIT | context.DEPTH_BUFFER_BIT);
+                }
+            }
+            
+            // Mostrar botón de start
+            document.getElementById('corazon3d-start').style.display = 'inline-block';
+            document.getElementById('corazon3d-stop').style.display = 'none';
+            
+            // Recargar página para limpiar completamente
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            const startBtn = document.getElementById('corazon3d-start');
+            const stopBtn = document.getElementById('corazon3d-stop');
+
+            if (startBtn) {
+                startBtn.addEventListener('click', initCorazon3D);
+            }
+
+            if (stopBtn) {
+                stopBtn.addEventListener('click', stopCorazon3D);
             }
         });
     </script>
