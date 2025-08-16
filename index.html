@@ -242,6 +242,189 @@
             margin: 20px 0;
         }
 
+        /* Estilos para Corazón de Partículas */
+        .corazon-particulas-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin: 20px 0;
+        }
+
+        #corazon-particulas-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+            border-radius: 20px;
+            z-index: 1;
+        }
+
+        #corazon-particulas-controls-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        #corazon-particulas-toggle-controls {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            backdrop-filter: blur(5px);
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        #corazon-particulas-toggle-controls:hover {
+            background: rgba(139, 0, 139, 0.8);
+            transform: translateY(-2px);
+        }
+
+        #corazon-particulas-controls {
+            background: rgba(100, 100, 100, 0.15);
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 320px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: block;
+        }
+
+        .corazon-particulas-control-group {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+
+        .corazon-particulas-control-group label {
+            width: 110px;
+            font-size: 14px;
+            margin-right: 10px;
+            font-weight: 500;
+        }
+
+        .corazon-particulas-control-group input[type="range"] {
+            flex-grow: 1;
+            margin-right: 10px;
+            accent-color: #8b008b;
+        }
+
+        .corazon-particulas-control-group span {
+            width: 35px;
+            text-align: right;
+            font-size: 14px;
+            font-weight: bold;
+            color: #dda0dd;
+        }
+
+        .corazon-particulas-control-group select {
+            flex-grow: 1;
+            padding: 8px;
+            border-radius: 6px;
+            background: rgba(51, 51, 51, 0.8);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-family: inherit;
+        }
+
+        #corazon-particulas-toggle-fullscreen {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        #corazon-particulas-toggle-fullscreen:hover {
+            background: rgba(139, 0, 139, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .corazon-particulas-controls-bottom {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            gap: 15px;
+        }
+
+        .corazon-particulas-btn {
+            background: linear-gradient(135deg, #8b008b, #9370db);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 0, 139, 0.4);
+        }
+
+        .corazon-particulas-btn:hover {
+            background: linear-gradient(135deg, #9370db, #dda0dd);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(139, 0, 139, 0.6);
+        }
+
+        .corazon-particulas-info {
+            background: rgba(139, 0, 139, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .corazon-particulas-info p {
+            color: #8b008b;
+            font-size: 16px;
+            margin: 8px 0;
+            font-weight: 500;
+        }
+
+        @media (max-width: 600px) {
+            #corazon-particulas-controls-container {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                max-width: none;
+            }
+
+            .corazon-particulas-control-group label {
+                width: 80px;
+                font-size: 12px;
+            }
+
+            .corazon-particulas-controls-bottom {
+                bottom: 10px;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
         #corazon3d-canvas {
             width: 100% !important;
             height: 100% !important;
@@ -539,6 +722,7 @@
             <button class="nav-btn active" onclick="showSection('laberinto')">🌟 Laberinto del Amor</button>
             <button class="nav-btn" onclick="showSection('disparos')">💥 Disparos de Corazones</button>
             <button class="nav-btn" onclick="showSection('corazon3d')">🌟 Corazón 3D</button>
+            <button class="nav-btn" onclick="showSection('corazon-particulas')">✨ Partículas</button>
             <button class="nav-btn" onclick="showSection('carta')">💌 Carta de Amor</button>
             <button class="nav-btn" onclick="showSection('fotos')">📸 Nuestras Fotos</button>
             <button class="nav-btn" onclick="showSection('emociones')">💭 Mis Emociones</button>
@@ -616,6 +800,71 @@
                 <p>🌟 Usa el mouse para rotar la vista</p>
                 <p>🎯 Los corazones caen por gravedad y rebotan</p>
                 <p>💫 Física 3D realista con Three.js y Ammo.js</p>
+            </div>
+        </section>
+
+        <!-- Sección Corazón de Partículas -->
+        <section id="corazon-particulas" class="content-section">
+            <h2 class="section-title">✨ Corazón de Partículas Interactivas ✨</h2>
+            <div style="text-align: center; margin: 30px 0;">
+                <p style="font-size: 18px; color: #8b008b; margin-bottom: 20px;">
+                    ¡Disfruta de un hermoso corazón formado por partículas dinámicas! 💜✨
+                </p>
+                <p style="font-size: 16px; color: #666; margin-bottom: 30px;">
+                    Mueve el mouse para interactuar con las partículas y personaliza los efectos
+                </p>
+            </div>
+
+            <div class="corazon-particulas-container">
+                <div id="corazon-particulas-controls-container">
+                    <button id="corazon-particulas-toggle-controls">Controles</button>
+                    <button id="corazon-particulas-toggle-fullscreen">Pantalla Completa</button>
+                    <div id="corazon-particulas-controls">
+                        <div class="corazon-particulas-control-group">
+                            <label for="corazon-particulas-colorScheme">Colores:</label>
+                            <select id="corazon-particulas-colorScheme">
+                                <option value="rainbow">Arcoíris</option>
+                                <option value="red">Rojo</option>
+                                <option value="green">Verde</option>
+                                <option value="blue">Azul</option>
+                                <option value="monochrome">Monocromático</option>
+                            </select>
+                        </div>
+                        <div class="corazon-particulas-control-group">
+                            <label for="corazon-particulas-particleSize">Tamaño:</label>
+                            <input type="range" id="corazon-particulas-particleSize" min="1" max="20" value="10">
+                            <span id="corazon-particulas-particleSizeValue">10</span>
+                        </div>
+                        <div class="corazon-particulas-control-group">
+                            <label for="corazon-particulas-particleCount">Partículas:</label>
+                            <input type="range" id="corazon-particulas-particleCount" min="10" max="100" value="32">
+                            <span id="corazon-particulas-particleCountValue">32</span>
+                        </div>
+                        <div class="corazon-particulas-control-group">
+                            <label for="corazon-particulas-speed">Velocidad:</label>
+                            <input type="range" id="corazon-particulas-speed" min="0.1" max="2" step="0.1" value="1">
+                            <span id="corazon-particulas-speedValue">1</span>
+                        </div>
+                        <div class="corazon-particulas-control-group">
+                            <label for="corazon-particulas-mouseInfluence">Seguir Mouse:</label>
+                            <input type="range" id="corazon-particulas-mouseInfluence" min="0" max="100" value="50">
+                            <span id="corazon-particulas-mouseInfluenceValue">50</span>
+                        </div>
+                    </div>
+                </div>
+
+                <canvas id="corazon-particulas-canvas"></canvas>
+                
+                <div class="corazon-particulas-controls-bottom">
+                    <button id="corazon-particulas-start" class="corazon-particulas-btn start-btn">🎆 Iniciar Partículas</button>
+                    <button id="corazon-particulas-stop" class="corazon-particulas-btn stop-btn" style="display: none;">⏹️ Detener Partículas</button>
+                </div>
+            </div>
+                
+            <div class="corazon-particulas-info">
+                <p>🎨 Cambia los colores y efectos con los controles</p>
+                <p>🖱️ Mueve el mouse sobre el corazón para interactuar</p>
+                <p>✨ Partículas dinámicas que siguen la forma del corazón</p>
             </div>
         </section>
 
@@ -2413,6 +2662,354 @@ async function AmmoPhysics() {
             if (stopBtn) {
                 stopBtn.addEventListener('click', stopCorazon3D);
             }
+        });
+
+        // ================================
+        // FUNCIONES PARA CORAZÓN DE PARTÍCULAS
+        // ================================
+
+        // Configuration
+        const particlesConfig = {
+            particleCount: 32,
+            speed: 1,
+            colorScheme: 'rainbow',
+            mouseInfluence: 50,
+            showHeartOutline: true,
+            particleSize: 10
+        };
+
+        // Canvas setup
+        let particlesCanvas = null;
+        let particlesCtx = null;
+        let particlesCanvasWidth = 0;
+        let particlesCanvasHeight = 0;
+
+        // Animation state
+        let particlesTrails = [];
+        let particlesHeartPath = [];
+        let particlesMouseX = 0;
+        let particlesMouseY = 0;
+        let particlesMouseActive = false;
+        let particlesAnimationRunning = false;
+        let particlesAnimationId = null;
+
+        // Initialize heart path points (fixed formula)
+        function initParticlesHeartPath() {
+            particlesHeartPath = [];
+            const PI2 = 6.28318; // 2*PI approximation
+            const steps = Math.max(32, particlesConfig.particleCount);
+            
+            for (let i = 0; i < steps; i++) {
+                const t = (i / steps) * PI2;
+                particlesHeartPath.push([
+                    particlesCanvasWidth/2 + 180 * Math.pow(Math.sin(t), 3),
+                    particlesCanvasHeight/2 + 10 * (-(15 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t)))
+                ]);
+            }
+        }
+
+        // Initialize particles with proper bounds checking
+        function initParticlesSystem() {
+            particlesTrails = [];
+            if (particlesHeartPath.length === 0) initParticlesHeartPath();
+
+            for (let i = 0; i < particlesConfig.particleCount; i++) {
+                const particles = [];
+                const x = Math.random() * particlesCanvasWidth;
+                const y = Math.random() * particlesCanvasHeight;
+
+                for (let k = 0; k < particlesConfig.particleCount; k++) {
+                    // Color generation
+                    let hue, saturation = Math.random() * 40 + 60;
+                    let brightness = Math.random() * 60 + 20;
+                    
+                    switch(particlesConfig.colorScheme) {
+                        case 'red': hue = Math.random() * 20 + 350; break;
+                        case 'blue': hue = Math.random() * 20 + 200; break;
+                        case 'green': hue = Math.random() * 20 + 100; break;
+                        case 'monochrome': hue = 0; saturation = 0; break;
+                        default: hue = i/particlesConfig.particleCount * 360; // rainbow
+                    }
+
+                    particles.push({
+                        x, y,
+                        velX: 0, velY: 0,
+                        radius: ((1 - k/particlesConfig.particleCount) + 1) * particlesConfig.particleSize/2,
+                        speed: Math.random() + 1,
+                        targetIndex: Math.floor(Math.random() * particlesHeartPath.length),
+                        direction: i % 2 * 2 - 1,
+                        friction: Math.random() * 0.2 + 0.7,
+                        color: `hsla(${hue},${saturation}%,${brightness}%,0.1)`
+                    });
+                }
+                particlesTrails.push(particles);
+            }
+        }
+
+        // Render a single particle
+        function renderParticle(particle) {
+            particlesCtx.fillStyle = particle.color;
+            particlesCtx.beginPath();
+            particlesCtx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+            particlesCtx.fill();
+        }
+
+        // Main animation loop with robust error handling
+        function particlesAnimationLoop() {
+            if (!particlesAnimationRunning) return;
+
+            try {
+                // Clear with trail effect
+                particlesCtx.fillStyle = "rgba(0, 0, 0, 0.2)";
+                particlesCtx.fillRect(0, 0, particlesCanvasWidth, particlesCanvasHeight);
+
+                particlesTrails.forEach(trail => {
+                    if (!trail || !trail.length) return;
+                    
+                    const leader = trail[0];
+                    const target = particlesHeartPath[leader.targetIndex % particlesHeartPath.length];
+                    if (!target) return;
+
+                    // Mouse influence
+                    if (particlesMouseActive && particlesConfig.mouseInfluence > 0) {
+                        const dx = particlesMouseX - leader.x;
+                        const dy = particlesMouseY - leader.y;
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+                        
+                        if (dist < 300) {
+                            const force = (1 - dist/300) * (particlesConfig.mouseInfluence/20);
+                            leader.velX += dx/dist * force;
+                            leader.velY += dy/dist * force;
+                        }
+                    }
+
+                    // Move toward target
+                    const dx = leader.x - target[0];
+                    const dy = leader.y - target[1];
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+
+                    if (dist < 10) {
+                        if (Math.random() > 0.95) {
+                            leader.targetIndex = Math.floor(Math.random() * particlesHeartPath.length);
+                        } else {
+                            if (Math.random() > 0.99) leader.direction *= -1;
+                            leader.targetIndex += leader.direction;
+                            leader.targetIndex = (leader.targetIndex + particlesHeartPath.length) % particlesHeartPath.length;
+                        }
+                    }
+
+                    // Update physics
+                    leader.velX += -dx/dist * leader.speed * particlesConfig.speed;
+                    leader.velY += -dy/dist * leader.speed * particlesConfig.speed;
+                    leader.x += leader.velX;
+                    leader.y += leader.velY;
+                    leader.velX *= leader.friction;
+                    leader.velY *= leader.friction;
+
+                    // Render trail
+                    renderParticle(leader);
+                    for (let k = 1; k < trail.length; k++) {
+                        trail[k].x -= (trail[k].x - trail[k-1].x) * 0.7;
+                        trail[k].y -= (trail[k].y - trail[k-1].y) * 0.7;
+                        renderParticle(trail[k]);
+                    }
+                });
+            } catch (error) {
+                console.error("Particles animation error:", error);
+            }
+
+            particlesAnimationId = requestAnimationFrame(particlesAnimationLoop);
+        }
+
+        // Control handlers
+        function setupParticlesControls() {
+            const controls = document.getElementById('corazon-particulas-controls');
+            let controlsVisible = true;
+
+            const toggleControlsBtn = document.getElementById('corazon-particulas-toggle-controls');
+            if (toggleControlsBtn) {
+                toggleControlsBtn.addEventListener('click', () => {
+                    controlsVisible = !controlsVisible;
+                    controls.style.display = controlsVisible ? 'block' : 'none';
+                });
+            }
+
+            const toggleFullscreenBtn = document.getElementById('corazon-particulas-toggle-fullscreen');
+            if (toggleFullscreenBtn) {
+                toggleFullscreenBtn.addEventListener('click', () => {
+                    if (!document.fullscreenElement) {
+                        particlesCanvas.requestFullscreen();
+                    } else {
+                        if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                        }
+                    }
+                });
+            }
+
+            const updateParticles = () => {
+                particlesConfig.particleCount = Math.min(100, Math.max(10, 
+                    parseInt(document.getElementById('corazon-particulas-particleCount').value)));
+                document.getElementById('corazon-particulas-particleCountValue').textContent = particlesConfig.particleCount;
+                initParticlesHeartPath();
+                initParticlesSystem();
+            };
+
+            const particleCountSlider = document.getElementById('corazon-particulas-particleCount');
+            if (particleCountSlider) {
+                particleCountSlider.addEventListener('input', updateParticles);
+            }
+
+            const speedSlider = document.getElementById('corazon-particulas-speed');
+            if (speedSlider) {
+                speedSlider.addEventListener('input', (e) => {
+                    particlesConfig.speed = parseFloat(e.target.value);
+                    document.getElementById('corazon-particulas-speedValue').textContent = particlesConfig.speed;
+                });
+            }
+
+            const colorSchemeSelect = document.getElementById('corazon-particulas-colorScheme');
+            if (colorSchemeSelect) {
+                colorSchemeSelect.addEventListener('change', (e) => {
+                    particlesConfig.colorScheme = e.target.value;
+                    initParticlesSystem();
+                });
+            }
+
+            const mouseInfluenceSlider = document.getElementById('corazon-particulas-mouseInfluence');
+            if (mouseInfluenceSlider) {
+                mouseInfluenceSlider.addEventListener('input', (e) => {
+                    particlesConfig.mouseInfluence = parseInt(e.target.value);
+                    document.getElementById('corazon-particulas-mouseInfluenceValue').textContent = particlesConfig.mouseInfluence;
+                });
+            }
+
+            const particleSizeSlider = document.getElementById('corazon-particulas-particleSize');
+            if (particleSizeSlider) {
+                particleSizeSlider.addEventListener('input', (e) => {
+                    particlesConfig.particleSize = parseInt(e.target.value);
+                    document.getElementById('corazon-particulas-particleSizeValue').textContent = particlesConfig.particleSize;
+                    initParticlesSystem();
+                });
+            }
+
+            // Mouse tracking específico para el canvas de partículas
+            if (particlesCanvas) {
+                particlesCanvas.addEventListener('mousemove', (e) => {
+                    const rect = particlesCanvas.getBoundingClientRect();
+                    particlesMouseX = (e.clientX - rect.left) * (particlesCanvasWidth / rect.width);
+                    particlesMouseY = (e.clientY - rect.top) * (particlesCanvasHeight / rect.height);
+                    particlesMouseActive = true;
+                });
+                
+                particlesCanvas.addEventListener('mouseleave', () => {
+                    particlesMouseActive = false;
+                });
+            }
+
+            // Window resize
+            window.addEventListener('resize', () => {
+                if (particlesCanvas && particlesAnimationRunning) {
+                    const container = document.querySelector('.corazon-particulas-container');
+                    if (container) {
+                        particlesCanvasWidth = particlesCanvas.width = container.clientWidth;
+                        particlesCanvasHeight = particlesCanvas.height = container.clientHeight;
+                        initParticlesHeartPath();
+                    }
+                }
+            });
+        }
+
+        // Initialize particles system
+        function initParticlesHeart() {
+            if (particlesAnimationRunning) return;
+
+            try {
+                console.log('Iniciando Corazón de Partículas...');
+
+                particlesCanvas = document.getElementById('corazon-particulas-canvas');
+                if (!particlesCanvas) {
+                    console.error('Canvas de partículas no encontrado');
+                    return;
+                }
+
+                particlesCtx = particlesCanvas.getContext('2d');
+                const container = document.querySelector('.corazon-particulas-container');
+                
+                particlesCanvasWidth = particlesCanvas.width = container.clientWidth;
+                particlesCanvasHeight = particlesCanvas.height = container.clientHeight;
+
+                particlesMouseX = particlesCanvasWidth / 2;
+                particlesMouseY = particlesCanvasHeight / 2;
+
+                particlesAnimationRunning = true;
+                setupParticlesControls();
+                
+                // Initialize everything
+                initParticlesHeartPath();
+                initParticlesSystem();
+                particlesAnimationLoop();
+
+                // Mostrar botón de stop
+                document.getElementById('corazon-particulas-start').style.display = 'none';
+                document.getElementById('corazon-particulas-stop').style.display = 'inline-block';
+
+                console.log('Corazón de Partículas iniciado correctamente');
+
+            } catch (error) {
+                console.error('Error al iniciar Corazón de Partículas:', error);
+                alert('Error al cargar Corazón de Partículas: ' + error.message);
+            }
+        }
+
+        // Stop particles system
+        function stopParticlesHeart() {
+            console.log('Deteniendo Corazón de Partículas...');
+            
+            particlesAnimationRunning = false;
+            
+            if (particlesAnimationId) {
+                cancelAnimationFrame(particlesAnimationId);
+                particlesAnimationId = null;
+            }
+
+            // Limpiar canvas
+            if (particlesCtx && particlesCanvas) {
+                particlesCtx.clearRect(0, 0, particlesCanvasWidth, particlesCanvasHeight);
+            }
+
+            // Reset variables
+            particlesTrails = [];
+            particlesHeartPath = [];
+            particlesMouseActive = false;
+
+            // Mostrar botón de start
+            document.getElementById('corazon-particulas-start').style.display = 'inline-block';
+            document.getElementById('corazon-particulas-stop').style.display = 'none';
+
+            console.log('Corazón de Partículas detenido');
+        }
+
+        // Event listeners para partículas
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesStartBtn = document.getElementById('corazon-particulas-start');
+            const particlesStopBtn = document.getElementById('corazon-particulas-stop');
+
+            if (particlesStartBtn) {
+                particlesStartBtn.addEventListener('click', function() {
+                    console.log('Botón Iniciar Partículas presionado');
+                    initParticlesHeart();
+                });
+            }
+
+            if (particlesStopBtn) {
+                particlesStopBtn.addEventListener('click', function() {
+                    console.log('Botón Detener Partículas presionado');
+                    stopParticlesHeart();
+                });
+            }
+
+            console.log('Event listeners para Corazón de Partículas configurados');
         });
     </script>
 </body>
